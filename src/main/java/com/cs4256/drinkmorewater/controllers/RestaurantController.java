@@ -27,4 +27,16 @@ public class RestaurantController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @RequestMapping(value = "/restaurant/all", method = RequestMethod.GET)
+    public ResponseEntity<?> getAll() { //not sure what to put here as a parameter
+        try {
+            Iterable<Restaurant> restaurants = restService.getAllRestaurant();
+
+            return new ResponseEntity<>(restaurants, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println("Error happened when getting all restaurants");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

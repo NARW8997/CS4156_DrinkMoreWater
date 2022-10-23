@@ -22,4 +22,8 @@ public class RestaurantService {
             throw new Exception("specified restaurant not found!");
         }
     }
+
+    public Iterable<Restaurant> getAllRestaurant(){
+        return restaurantRepository.findAll();
+    }
 }
