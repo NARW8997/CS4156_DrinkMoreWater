@@ -12,7 +12,7 @@ public class Review {
     private String reviewContent;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant.restId")
+    @JoinColumn(name = "restaurant_review.restId")
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)

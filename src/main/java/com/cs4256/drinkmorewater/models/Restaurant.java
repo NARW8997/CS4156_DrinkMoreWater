@@ -28,8 +28,11 @@ public class Restaurant {
     @Column(name = "rest_dislikes")
     private Integer restDislikes;
 
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, orphanRemoval = false )
-    private List<Review> listReviews = new ArrayList<Review>();
+    @OneToMany(mappedBy = "restaurant_review", fetch = FetchType.LAZY, orphanRemoval = false )
+    private List<Review> restReviews = new ArrayList<Review>();
+
+    @OneToMany(mappedBy = "restaurant_serve", fetch = FetchType.LAZY, orphanRemoval = false )
+    private List<Review> restServes = new ArrayList<Review>();
 
     public Integer getRestaurantId() {
         return restId;

@@ -2,6 +2,7 @@ package com.cs4256.drinkmorewater.models;
 
 import javax.persistence.*;
 
+/* serve and dish haven't included in service and controller yet */
 @Entity
 public class Dish {
     @Id
