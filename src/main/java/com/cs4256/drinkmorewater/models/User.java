@@ -1,6 +1,8 @@
 package com.cs4256.drinkmorewater.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -22,6 +24,9 @@ public class User {
 
     @Column(name = "type")
     private Integer type;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = false )
+    private List<Review> userReviews = new ArrayList<Review>();
 
     public Integer getUserId() {
         return userId;

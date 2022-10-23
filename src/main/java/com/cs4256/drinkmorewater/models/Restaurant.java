@@ -1,6 +1,8 @@
 package com.cs4256.drinkmorewater.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Restaurant {
@@ -25,6 +27,9 @@ public class Restaurant {
 
     @Column(name = "rest_dislikes")
     private Integer restDislikes;
+
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, orphanRemoval = false )
+    private List<Review> listReviews = new ArrayList<Review>();
 
     public Integer getRestaurantId() {
         return restId;
