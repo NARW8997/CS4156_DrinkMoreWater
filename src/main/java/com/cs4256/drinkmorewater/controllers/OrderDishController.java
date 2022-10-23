@@ -1,7 +1,9 @@
 package com.cs4256.drinkmorewater.controllers;
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
+import com.cs4256.drinkmorewater.models.OrderDish;
 import com.cs4256.drinkmorewater.models.User;
+import com.cs4256.drinkmorewater.services.impl.OrderDishServiceImpl;
 import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class OrderDishController {
 
     @Autowired
-    private UserServiceImpl orderDishService;
+    private OrderDishServiceImpl orderDishService;
 
     /**
      * return all element
@@ -36,8 +38,8 @@ public class OrderDishController {
      * @return
      */
     @PostMapping
-    public R insert(@RequestBody User user) {
-        return new R(orderDishService.save(user));
+    public R insert(@RequestBody OrderDish orderDish) {
+        return new R(orderDishService.save(orderDish));
     }
 
     /**
@@ -46,8 +48,8 @@ public class OrderDishController {
      * @return
      */
     @PutMapping
-    public R updateById(@RequestBody User user) {
-        return new R(orderDishService.updateById(user));
+    public R updateById(@RequestBody OrderDish orderDish) {
+        return new R(orderDishService.updateById(orderDish));
     }
 
     /**

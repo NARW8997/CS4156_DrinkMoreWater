@@ -1,7 +1,9 @@
 package com.cs4256.drinkmorewater.controllers;
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
+import com.cs4256.drinkmorewater.models.Dish;
 import com.cs4256.drinkmorewater.models.User;
+import com.cs4256.drinkmorewater.services.impl.DishServiceImpl;
 import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class DishController {
 
     @Autowired
-    private UserServiceImpl dishService;
+    private DishServiceImpl dishService;
 
     /**
      * return all element
@@ -36,8 +38,8 @@ public class DishController {
      * @return
      */
     @PostMapping
-    public R insert(@RequestBody User user) {
-        return new R(dishService.save(user));
+    public R insert(@RequestBody Dish dish) {
+        return new R(dishService.save(dish));
     }
 
     /**
@@ -46,8 +48,8 @@ public class DishController {
      * @return
      */
     @PutMapping
-    public R updateById(@RequestBody User user) {
-        return new R(dishService.updateById(user));
+    public R updateById(@RequestBody Dish dish) {
+        return new R(dishService.updateById(dish));
     }
 
     /**
