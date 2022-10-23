@@ -1,39 +1,15 @@
 package com.cs4256.drinkmorewater.models;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+
 import javax.persistence.*;
 
-@Entity
+@Data
 public class Review {
-    @Id
-    @Column(name = "review_id")
+    @TableId("review_id")
     private Integer reviewId;
-
-    @Column(name = "review_content")
-    private String reviewContent;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_review.restId")
-    private Restaurant restaurant;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user.userId")
-    private User user;
-
-    public Integer getReviewId() {
-        return reviewId;
-    }
-
-    public void setReviewId(Integer reviewId) {
-        this.reviewId = reviewId;
-    }
-
-    public String getReviewContent() {
-        return reviewContent;
-    }
-
-    public void setReviewContent(String reviewContent) {
-        this.reviewContent = reviewContent;
-    }
-
-
+    private String content;
+    private Integer restId;
+    private Integer userId;
 }

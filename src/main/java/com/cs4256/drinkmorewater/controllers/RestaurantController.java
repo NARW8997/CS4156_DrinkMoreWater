@@ -1,42 +1,63 @@
 package com.cs4256.drinkmorewater.controllers;
 
+import com.cs4256.drinkmorewater.controllers.utils.R;
 import com.cs4256.drinkmorewater.models.Restaurant;
-import com.cs4256.drinkmorewater.services.RestaurantService;
+import com.cs4256.drinkmorewater.models.User;
+import com.cs4256.drinkmorewater.services.impl.RestaurantServiceImpl;
+import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/restaurant")
 public class RestaurantController {
 
     @Autowired
-    RestaurantService restService;
+    private RestaurantServiceImpl restaurantService;
 
-    @RequestMapping(value = "/restaurant/{rest_id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable("rest_id") int restId) {
-        try {
-            Restaurant restaurant = restService.getRestaurantById(restId);
-
-            return new ResponseEntity<>(restaurant, HttpStatus.OK);
-        } catch (Exception e) {
-            System.out.println("Error happened when getting restaurant by id");
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    /**
+     * return all element
+     * @return
+     */
+    @GetMapping
+    public R getAll() {
+        return new R(true, restaurantService.list());
     }
 
-    @RequestMapping(value = "/restaurant/all", method = RequestMethod.GET)
-    public ResponseEntity<?> getAll() { //not sure what to put here as a parameter
-        try {
-            Iterable<Restaurant> restaurants = restService.getAllRestaurant();
+    /**
+     * return an element by its id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public R getById(@PathVariable Integer id) {
+        return new R(true, restaurantService.getById(id));
+    }
 
-            return new ResponseEntity<>(restaurants, HttpStatus.OK);
-        } catch (Exception e) {
-            System.out.println("Error happened when getting all restaurants");
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    /**
+     * add an element to the corresponding table
+     * @return
+     */
+    @PostMapping
+    public R insert(@RequestBody Restaurant restaurant) {
+        return new R(restaurantService.save(restaurant));
+    }
+
+    /**
+     * update(change) an element by its id
+     * this method REQUIRES to set Model's id
+     * @return
+     */
+    @PutMapping
+    public R updateById(@RequestBody Restaurant restaurant) {
+        return new R(restaurantService.updateById(restaurant));
+    }
+
+    /**
+     * Delete an element by its id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public R deleteById(@PathVariable Integer id) {
+        return new R(restaurantService.removeById(id));
     }
 }

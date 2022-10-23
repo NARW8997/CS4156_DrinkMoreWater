@@ -1,19 +1,17 @@
 package com.cs4256.drinkmorewater.controllers;
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
-import com.cs4256.drinkmorewater.models.Review;
-import com.cs4256.drinkmorewater.models.User;
-import com.cs4256.drinkmorewater.services.impl.ReviewServiceImpl;
-import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
+import com.cs4256.drinkmorewater.models.OrderProfile;
+import com.cs4256.drinkmorewater.services.impl.OrderProfileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/review")
-public class ReviewController {
+@RequestMapping("/orderProfile")
+public class OrderProfileController {
 
     @Autowired
-    private ReviewServiceImpl reviewService;
+    private OrderProfileServiceImpl orderProfileService;
 
     /**
      * return all element
@@ -21,7 +19,7 @@ public class ReviewController {
      */
     @GetMapping
     public R getAll() {
-        return new R(true, reviewService.list());
+        return new R(true, orderProfileService.list());
     }
 
     /**
@@ -30,7 +28,7 @@ public class ReviewController {
      */
     @GetMapping("/{id}")
     public R getById(@PathVariable Integer id) {
-        return new R(true, reviewService.getById(id));
+        return new R(true, orderProfileService.getById(id));
     }
 
     /**
@@ -38,8 +36,8 @@ public class ReviewController {
      * @return
      */
     @PostMapping
-    public R insert(@RequestBody Review review) {
-        return new R(reviewService.save(review));
+    public R insert(@RequestBody OrderProfile orderProfile) {
+        return new R(orderProfileService.save(orderProfile));
     }
 
     /**
@@ -48,8 +46,8 @@ public class ReviewController {
      * @return
      */
     @PutMapping
-    public R updateById(@RequestBody Review review) {
-        return new R(reviewService.updateById(review));
+    public R updateById(@RequestBody OrderProfile orderProfile) {
+        return new R(orderProfileService.updateById(orderProfile));
     }
 
     /**
@@ -58,6 +56,6 @@ public class ReviewController {
      */
     @DeleteMapping("/{id}")
     public R deleteById(@PathVariable Integer id) {
-        return new R(reviewService.removeById(id));
+        return new R(orderProfileService.removeById(id));
     }
 }

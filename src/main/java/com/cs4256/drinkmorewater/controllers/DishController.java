@@ -1,19 +1,17 @@
 package com.cs4256.drinkmorewater.controllers;
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
-import com.cs4256.drinkmorewater.models.Review;
 import com.cs4256.drinkmorewater.models.User;
-import com.cs4256.drinkmorewater.services.impl.ReviewServiceImpl;
 import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/review")
-public class ReviewController {
+@RequestMapping("/dish")
+public class DishController {
 
     @Autowired
-    private ReviewServiceImpl reviewService;
+    private UserServiceImpl dishService;
 
     /**
      * return all element
@@ -21,7 +19,7 @@ public class ReviewController {
      */
     @GetMapping
     public R getAll() {
-        return new R(true, reviewService.list());
+        return new R(true, dishService.list());
     }
 
     /**
@@ -30,7 +28,7 @@ public class ReviewController {
      */
     @GetMapping("/{id}")
     public R getById(@PathVariable Integer id) {
-        return new R(true, reviewService.getById(id));
+        return new R(true, dishService.getById(id));
     }
 
     /**
@@ -38,8 +36,8 @@ public class ReviewController {
      * @return
      */
     @PostMapping
-    public R insert(@RequestBody Review review) {
-        return new R(reviewService.save(review));
+    public R insert(@RequestBody User user) {
+        return new R(dishService.save(user));
     }
 
     /**
@@ -48,8 +46,8 @@ public class ReviewController {
      * @return
      */
     @PutMapping
-    public R updateById(@RequestBody Review review) {
-        return new R(reviewService.updateById(review));
+    public R updateById(@RequestBody User user) {
+        return new R(dishService.updateById(user));
     }
 
     /**
@@ -58,6 +56,6 @@ public class ReviewController {
      */
     @DeleteMapping("/{id}")
     public R deleteById(@PathVariable Integer id) {
-        return new R(reviewService.removeById(id));
+        return new R(dishService.removeById(id));
     }
 }
