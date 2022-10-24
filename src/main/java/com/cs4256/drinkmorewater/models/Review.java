@@ -7,6 +7,12 @@ import javax.persistence.*;
 
 @Data
 public class Review {
+    public Review(Integer reviewId, String content, Integer restId, Integer userId) {
+        this.reviewId = reviewId;
+        this.content = content;
+        this.restId = restId;
+        this.userId = userId;
+    }
     @TableId("review_id")
     private Integer reviewId;
     private String content;
