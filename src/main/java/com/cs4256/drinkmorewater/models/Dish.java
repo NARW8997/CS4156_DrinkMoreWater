@@ -8,6 +8,14 @@ import javax.persistence.*;
 /* serve and dish haven't included in service and controller yet */
 @Data
 public class Dish {
+    public Dish(Integer dishId, String dishDescription, String flavor, String dishName, String serveSize, Integer restId) {
+        this.dishId = dishId;
+        this.dishDescription = dishDescription;
+        this.flavor = flavor;
+        this.dishName = dishName;
+        this.serveSize = serveSize;
+        this.restId = restId;
+    }
     @TableId("dish_id")
     private Integer dishId;
     private String dishDescription;
@@ -16,3 +24,4 @@ public class Dish {
     private String serveSize;
     private Integer restId;
 }
+
