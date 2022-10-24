@@ -14,27 +14,28 @@
                * `email` (Type: String)  
                * `phone` (Type: String)  
                * `type` (Type: Integer)  
-      * `GET /users/{id}`  
-          * Description: This endpoint retrieves a specific user that match the template given in the query parameters.  
-          * Sample Request: localhost:8080/users/1  
-          * Request Parameters:  
-               * `user_id` (Type: Integer)  
-               * `first_name` (Type: String)  
-               * `last_name` (Type: String)  
-               * `email` (Type: String)  
-               * `phone` (Type: String)  
-               * `type` (Type: Integer)  
-      * `POST /users`  
-          * Description: This endpoint receives the details of a user to newly create. The parameters in the request body must have fields exactly identical to those which are shown in the sample below.  
-          * Sample Request Body:  
-               * `{ "userId": 1, "firstName": "James", "lastName": "Cann", "email": "jcann@gmail.com", "phone": "900-001-0012", "type": 1 }`                    * `PUT /users`  
-          * Description: This endpoint receives the details of a user to update. The parameters in the request body must have fields exactly identical to those which are shown in the sample below.  
-          * Sample Request Body:  
-               * `{ "userId": 2, "firstName": "James", "lastName": "Cann", "email": "jcann@gmail.com", "phone": "900-001-0012", "type": 1 }`  
-     * `DELETE /users/{id}`  
-          * Description: This endpoint receives a userId to delete.  
-          * Request Parameters:  
-               * `userId` (Type: Integer)  
+    * `GET /users/{id}`  
+        * Description: This endpoint retrieves a specific user that match the template given in the query parameters.  
+        * Sample Request: localhost:8080/users/1  
+        * Request Parameters:  
+            * `user_id` (Type: Integer)  
+            * `first_name` (Type: String)  
+            * `last_name` (Type: String)  
+            * `email` (Type: String)  
+            * `phone` (Type: String)  
+            * `type` (Type: Integer)  
+    * `POST /users`  
+        * Description: This endpoint receives the details of a user to newly create. The parameters in the request body must have fields exactly identical to those which are shown in the sample below.  
+        * Sample Request Body:  
+            * `{ "userId": 1, "firstName": "James", "lastName": "Cann", "email": "jcann@gmail.com", "phone": "900-001-0012", "type": 1 }`  
+    * `PUT /users`  
+        * Description: This endpoint receives the details of a user to update. The parameters in the request body must have fields exactly identical to those which are shown in the sample below.  
+        * Sample Request Body:  
+            * `{ "userId": 2, "firstName": "James", "lastName": "Cann", "email": "jcann@gmail.com", "phone": "900-001-0012", "type": 1 }`  
+    * `DELETE /users/{id}`  
+        * Description: This endpoint receives a userId to delete.  
+        * Request Parameters:  
+            * `userId` (Type: Integer)  
             
 ## 2. System Tests Corresponding to API
 
