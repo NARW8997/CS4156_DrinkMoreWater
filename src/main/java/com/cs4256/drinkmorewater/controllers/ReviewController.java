@@ -1,17 +1,19 @@
 package com.cs4256.drinkmorewater.controllers;
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
+import com.cs4256.drinkmorewater.models.Review;
 import com.cs4256.drinkmorewater.models.User;
+import com.cs4256.drinkmorewater.services.impl.ReviewServiceImpl;
 import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/review")
+public class ReviewController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private ReviewServiceImpl reviewService;
 
     /**
      * return all element
@@ -19,7 +21,7 @@ public class UserController {
      */
     @GetMapping
     public R getAll() {
-        return new R(true, userService.list());
+        return new R(true, reviewService.list());
     }
 
     /**
@@ -28,7 +30,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public R getById(@PathVariable Integer id) {
-        return new R(true, userService.getById(id));
+        return new R(true, reviewService.getById(id));
     }
 
     /**
@@ -36,8 +38,8 @@ public class UserController {
      * @return
      */
     @PostMapping
-    public R insert(@RequestBody User user) {
-        return new R(userService.save(user));
+    public R insert(@RequestBody Review review) {
+        return new R(reviewService.save(review));
     }
 
     /**
@@ -46,8 +48,8 @@ public class UserController {
      * @return
      */
     @PutMapping
-    public R updateById(@RequestBody User user) {
-        return new R(userService.updateById(user));
+    public R updateById(@RequestBody Review review) {
+        return new R(reviewService.updateById(review));
     }
 
     /**
@@ -56,6 +58,6 @@ public class UserController {
      */
     @DeleteMapping("/{id}")
     public R deleteById(@PathVariable Integer id) {
-        return new R(userService.removeById(id));
+        return new R(reviewService.removeById(id));
     }
 }

@@ -1,62 +1,27 @@
 package com.cs4256.drinkmorewater.models;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+
 import javax.persistence.*;
 
-@Entity
+/* serve and dish haven't included in service and controller yet */
+@Data
 public class Dish {
-    @Id
-    @Column(name = "dish_id")
-    private Integer dishId;
-
-    @Column(name = "dish_name")
-    private String dishName;
-
-    @Column(name = "flavor")
-    private String dishFlavor;
-
-    @Column(name = "dish_description")
-    private String dishDescription;
-
-    @Column(name = "serve_size")
-    private String serveSize;
-
-    public Integer getDishId() {
-        return dishId;
-    }
-
-    public void setDishId(Integer dishId) {
+    public Dish(Integer dishId, String dishDescription, String flavor, String dishName, String serveSize, Integer restId) {
         this.dishId = dishId;
-    }
-
-    public String getDishName() {
-        return dishName;
-    }
-
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
-    }
-
-    public String getDishFlavor() {
-        return dishFlavor;
-    }
-
-    public void setDishFlavor(String dishFlavor) {
-        this.dishFlavor = dishFlavor;
-    }
-
-    public String getDishDescription() {
-        return dishDescription;
-    }
-
-    public void setDishDescription(String dishDescription) {
         this.dishDescription = dishDescription;
-    }
-
-    public String getServeSize() {
-        return serveSize;
-    }
-
-    public void setServeSize(String serveSize) {
+        this.flavor = flavor;
+        this.dishName = dishName;
         this.serveSize = serveSize;
+        this.restId = restId;
     }
+    @TableId("dish_id")
+    private Integer dishId;
+    private String dishDescription;
+    private String flavor;
+    private String dishName;
+    private String serveSize;
+    private Integer restId;
 }
+
