@@ -3,10 +3,6 @@ package com.cs4256.drinkmorewater.models;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 public class Restaurant {
     public Restaurant(Integer restId, String restLocation, String restName, Integer restLikes, Integer restDislikes,
