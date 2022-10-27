@@ -33,6 +33,11 @@ public class RestaurantController {
         return new R(true, restaurantService.getById(id));
     }
 
+    @GetMapping("/popular")
+    public R getPopularRestaurants() {
+        return new R(true, restaurantService.getPopularRestaurants());
+    }
+
     /**
      * add an element to the corresponding table
      * @return
