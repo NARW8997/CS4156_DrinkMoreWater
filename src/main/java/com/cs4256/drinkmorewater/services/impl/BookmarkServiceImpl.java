@@ -3,6 +3,7 @@ package com.cs4256.drinkmorewater.services.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cs4256.drinkmorewater.mapper.BookmarkMapper;
 import com.cs4256.drinkmorewater.models.Bookmark;
+import com.cs4256.drinkmorewater.models.UserRest;
 import com.cs4256.drinkmorewater.services.IBookmarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,12 @@ public class BookmarkServiceImpl extends ServiceImpl<BookmarkMapper, Bookmark>
     private BookmarkMapper mapper;
 
     @Override
-    public List<Bookmark> getByRestId(Integer restId) {
+    public List<UserRest> getByRestId(Integer restId) {
         return mapper.selectByRestId(restId);
     }
 
     @Override
-    public List<Bookmark> getByUserId(Integer userId) {
+    public List<UserRest> getByUserId(Integer userId) {
         return mapper.selectByUserId(userId);
     }
 

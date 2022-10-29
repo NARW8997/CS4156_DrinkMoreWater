@@ -9,25 +9,25 @@
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="restId" column="rest_id" jdbcType="INTEGER"/>
     </resultMap>
-    <select id="selectByRestId" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from bookmark
-        where
-        rest_id = #{restId,jdbcType=NUMERIC}
-    </select>
+<!--    <select id="selectByRestId" resultMap="BaseResultMap">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from bookmark-->
+<!--        where-->
+<!--        rest_id = #{restId,jdbcType=NUMERIC}-->
+<!--    </select>-->
 
     <sql id="Base_Column_List">
         mark_id,user_id,rest_id
     </sql>
 
-    <select id="selectByUserId" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from bookmark
-        where
-        user_id = #{userId,jdbcType=NUMERIC}
-    </select>
+<!--    <select id="selectByUserId" resultMap="BaseResultMap">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from bookmark-->
+<!--        where-->
+<!--        user_id = #{userId,jdbcType=NUMERIC}-->
+<!--    </select>-->
     <select id="countByUserId" resultType="int">
         select count(*)
         from bookmark
