@@ -33,10 +33,28 @@ public class RestaurantController {
         return new R(true, restaurantService.getById(id));
     }
 
+    @GetMapping("/details")
+    public R getAllRestDetails() {
+        return new R(true, restaurantService.selectAllRestDetail());
+    }
+
+    @GetMapping("/{id}/details")
+    public R getRestDetailsById(@PathVariable Integer id) {
+        return new R (true, restaurantService.selectRestDetailById(id));
+    }
+
     @GetMapping("/popular")
     public R getPopularRestaurants() {
         return new R(true, restaurantService.getPopularRestaurants());
     }
+
+//    @PutMapping("/{userId}/{restId}/mark/")
+//    public R updateMarkByUserIdBy1() {
+//
+//    }
+//
+//    @PutMapping("/{userId}/{restId}/unmark")
+//    public
 
     /**
      * add an element to the corresponding table

@@ -1,17 +1,18 @@
 package com.cs4256.drinkmorewater.services.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cs4256.drinkmorewater.mapper.DishMapper;
 import com.cs4256.drinkmorewater.mapper.ReviewMapper;
-import com.cs4256.drinkmorewater.models.Restaurant;
+import com.cs4256.drinkmorewater.models.*;
 import com.cs4256.drinkmorewater.mapper.RestaurantMapper;
-import com.cs4256.drinkmorewater.models.RestaurantPopular;
-import com.cs4256.drinkmorewater.models.Review;
 import com.cs4256.drinkmorewater.services.IRestaurantService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -21,6 +22,8 @@ public class RestaurantServiceImpl extends ServiceImpl<RestaurantMapper, Restaur
         implements IRestaurantService {
     @Autowired
     RestaurantMapper restaurantMapper;
+    @Autowired
+    private DishMapper dishMapper;
 
     @Autowired
     ReviewMapper reviewMapper;
@@ -52,4 +55,52 @@ public class RestaurantServiceImpl extends ServiceImpl<RestaurantMapper, Restaur
 
         return  popRests;
     }
+
+    @Override
+    public List<RestaurantDetail> selectAllRestDetail() {
+        List<RestaurantDetail> restaurantDetails = new ArrayList<>();
+//        LambdaQueryWrapper<Restaurant> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.select(Restaurant::getRestId);
+        for (Restaurant restaurant : restaurantMapper.selectList(null)) {
+            int restId = restaurant.getRestId();
+            restaurantDetails.add(selectRestDetailById(restId));
+        }
+        return restaurantDetails;
+    }
+
+    @Override
+    public RestaurantDetail selectRestDetailById(Integer restId) {
+        // get all the dishes where it's rest_id = restId
+        LambdaQueryWrapper<Dish> dishQueryWrapper = new LambdaQueryWrapper<>();
+        dishQueryWrapper.select(Dish::getDishName)
+                .eq(Dish::getRestId, restId);
+        List<String> dishName = new ArrayList<>();
+        for (Dish dish : dishMapper.selectList(dishQueryWrapper)) {
+            dishName.add(dish.getDishName());
+        }
+
+        // get all the reviews where it's rest_id = restId
+        LambdaQueryWrapper<Review> reviewQueryWrapper = new LambdaQueryWrapper<>();
+        reviewQueryWrapper.select(Review::getContent)
+                .eq(Review::getRestId, restId);
+        List<String> contents = new ArrayList<>();
+        for (Review review : reviewMapper.selectList(reviewQueryWrapper)) {
+            contents.add(review.getContent());
+        }
+
+        // Construct RestaurantDetails obj
+        Restaurant rest = restaurantMapper.selectById(restId);
+        RestaurantDetail restaurantDetail = new RestaurantDetail();
+        restaurantDetail.setRestId(rest.getRestId());
+        restaurantDetail.setRestLocation(rest.getRestLocation());
+        restaurantDetail.setRestName(rest.getRestName());
+        restaurantDetail.setRestLikes(rest.getRestLikes());
+        restaurantDetail.setRestDislikes(rest.getRestDislikes());
+        restaurantDetail.setRestNumber(rest.getRestNumber());
+        restaurantDetail.setRestSize(rest.getRestSize());
+        restaurantDetail.setContents(contents);
+        restaurantDetail.setDishes(dishName);
+        return restaurantDetail;
+    }
+
 }
