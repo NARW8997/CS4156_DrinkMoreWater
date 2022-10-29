@@ -4,7 +4,7 @@
     "name": "DrinkMoreWaterRestaurantAPItest",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "24117254",
-    "totalPass": 5,
+    "totalPass": 7,
     "totalFail": 0
   },
   "item": [
@@ -207,6 +207,73 @@
               "path": [
                 "restaurant",
                 "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get_all_rest_details_test",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/restaurant/details",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "restaurant",
+                "details"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get_rest_details_by_id_test",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/restaurant/1/details",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "restaurant",
+                "1",
+                "details"
               ]
             }
           },
