@@ -103,4 +103,25 @@ public class RestaurantServiceImpl extends ServiceImpl<RestaurantMapper, Restaur
         return restaurantDetail;
     }
 
+    @Override
+    public Integer updateRestLikesByRestId(Integer restLikes, Integer restId) {
+        return restaurantMapper.updateRestLikesByRestId(restLikes, restId);
+    }
+
+    @Override
+    public Integer updateRestDislikesByRestId(Integer restDislikes, Integer restId) {
+        return restaurantMapper.updateRestDislikesByRestId(restDislikes, restId);
+    }
+
+    @Override
+    public Integer updateRestLikesByRestIdBy1(Integer restId) {
+        return restaurantMapper.updateRestLikesByRestIdBy1(restId);
+    }
+
+    @Override
+    public Integer updateRestDislikesByRestIdBy1(Integer restId) {
+        return restaurantMapper.updateRestDislikesByRestIdBy1(restId);
+    }
+
+
 }

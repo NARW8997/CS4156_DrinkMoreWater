@@ -40,7 +40,7 @@
 ## 2. System Tests Corresponding to API
   * We can use HTTP Client IDEA plugin for API testing.
 ## 3. Unit Tests
-  * The unit tests are located in src/test/java/drinkmorewater.
+  * The unit tests are located in src/test001/java/drinkmorewater.
 
 ## 4. Style Compliant
   * We can use or CheckStyle-IDEA or SonarLint IDEA plugin for Style checking.
@@ -55,6 +55,6 @@
   * We can useTravis CI with Github, or TeamCity with Intellij IDEA
 ## 3. Coverage
   * We can use JUnit or Built-in Intellij IDEA tools along with JaCoCo for coverage display. 
-  * We can use JUnit for covering test runs.
+  * We can use JUnit for covering test001 runs.
 ## 4. Bug Finder
   * We can use FindBugs-IDEA or SpotBugs IDEA plugin for Style checking.

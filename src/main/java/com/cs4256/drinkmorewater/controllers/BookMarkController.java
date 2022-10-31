@@ -1,6 +1,7 @@
 package com.cs4256.drinkmorewater.controllers;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cs4256.drinkmorewater.controllers.utils.R;
 import com.cs4256.drinkmorewater.models.Bookmark;
 import com.cs4256.drinkmorewater.services.impl.BookmarkServiceImpl;
@@ -27,6 +28,7 @@ public class BookMarkController {
 
     @GetMapping("/countuser/{userId}")
     public R countByUserId(@PathVariable Integer userId) {
+
         return new R(true, bookMarkService.countByUserId(userId));
     }
 

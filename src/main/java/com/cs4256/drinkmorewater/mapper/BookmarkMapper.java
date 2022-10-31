@@ -17,8 +17,8 @@ public interface BookmarkMapper extends BaseMapper<Bookmark> {
     @Select("select u.first_name, r.rest_name from bookmark bk, user u, restaurant r where u.user_id = bk.user_id and r.rest_id = bk.rest_id and u.user_id = #{userId}")
     List<UserRest> selectByUserId(@Param("userId") Integer userId);
 
-    int countByUserId(@Param("userId") Integer userId);
+    Integer countByUserId(@Param("userId") Integer userId);
 
-    int countByRestId(@Param("restId") Integer restId);
+    Integer countByRestId(@Param("restId") Integer restId);
 
 }

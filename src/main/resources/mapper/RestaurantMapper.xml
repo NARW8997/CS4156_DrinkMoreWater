@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cs4256.drinkmorewater.mapper.RestaurantMapper">
+    <update id="updateRestDislikesByRestId">
+        update restaurant
+        set rest_dislikes = #{restDislikes,jdbcType=NUMERIC}
+        where rest_id = #{restId,jdbcType=NUMERIC}
+    </update>
+    <update id="updateRestLikesByRestId">
+        update restaurant
+        set rest_likes = #{restLikes,jdbcType=NUMERIC}
+        where rest_id = #{restId,jdbcType=NUMERIC}
+    </update>
+    <update id="updateRestLikesByRestIdBy1">
+        update restaurant
+        set rest_likes = rest_likes + 1
+        where rest_id = #{restId,jdbcType=NUMERIC}
+    </update>
+    <update id="updateRestDislikesByRestIdBy1">
+        update restaurant
+        set rest_dislikes = rest_dislikes + 1
+        where rest_id = #{restId,jdbcType=NUMERIC}
+    </update>
+</mapper>

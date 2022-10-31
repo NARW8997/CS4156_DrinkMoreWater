@@ -29,8 +29,8 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-test001</artifactId>
+            <scope>test001</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,7 +51,7 @@
 
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter-test</artifactId>
+            <artifactId>mybatis-plus-boot-starter-test001</artifactId>
             <version>3.5.2</version>
         </dependency>
 
@@ -62,7 +62,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <scope>test001</scope>
         </dependency>
 
     </dependencies>
