@@ -1,14 +1,12 @@
 package com.cs4256.drinkmorewater.controllers;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cs4256.drinkmorewater.controllers.utils.R;
 import com.cs4256.drinkmorewater.models.Bookmark;
 import com.cs4256.drinkmorewater.services.impl.BookmarkServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 
 @RestController
 @RequestMapping("/bookmark")

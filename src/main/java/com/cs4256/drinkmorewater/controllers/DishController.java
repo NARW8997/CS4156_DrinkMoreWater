@@ -2,9 +2,7 @@ package com.cs4256.drinkmorewater.controllers;
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
 import com.cs4256.drinkmorewater.models.Dish;
-import com.cs4256.drinkmorewater.models.User;
 import com.cs4256.drinkmorewater.services.impl.DishServiceImpl;
-import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
