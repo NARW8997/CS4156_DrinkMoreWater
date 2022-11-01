@@ -5,6 +5,7 @@ import com.cs4256.drinkmorewater.controllers.utils.UserType;
 import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.models.OrderProfile;
 import com.cs4256.drinkmorewater.services.impl.OrderProfileServiceImpl;
+import com.cs4256.drinkmorewater.services.impl.RestaurantServiceImpl;
 import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,8 @@ public class OrderProfileController {
     private OrderProfileServiceImpl orderProfileService;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private RestaurantServiceImpl restaurantService;
 
     private UserType userType;
 
@@ -49,11 +52,15 @@ public class OrderProfileController {
                 userType.getTypeEnum().equals(TypeEnum.ORDERAPP)) {
             return new R(true, orderProfileService.getById(id));
         } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT) &&
-        userType.getUid().equals(id)) {
+        userType.getUid().equals(restaurantService.getById
+                (orderProfileService.getById(id).getRestId()).getRestOwnerId())) {
             return new R(true, orderProfileService.getById(id));
         }
+
         return new R (false, "You do not have right");
     }
+
+
 
     /**
      * add an element to the corresponding table

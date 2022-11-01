@@ -5,6 +5,7 @@ import com.cs4256.drinkmorewater.controllers.utils.UserType;
 import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.models.Dish;
 import com.cs4256.drinkmorewater.services.impl.DishServiceImpl;
+import com.cs4256.drinkmorewater.services.impl.RestaurantServiceImpl;
 import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,8 @@ public class DishController {
 
     @Autowired
     private UserServiceImpl userService;
-
+    @Autowired
+    private RestaurantServiceImpl restaurantService;
     private UserType userType;
 
     @ModelAttribute
@@ -51,12 +53,14 @@ public class DishController {
      * @return
      */
     @PostMapping
-    // TODO: decide a way to handle conflict between user, rest and dish
     // admin, rest(id)
     public R insert(@RequestBody Dish dish) {
         if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
             return new R(dishService.save(dish));
-        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT) &&
+        userType.getUid().equals(restaurantService
+                .getById(dish.getRestId())
+                .getRestOwnerId())) {
             return new R(dishService.save(dish));
         }
         return new R (false, "You do not have right");
@@ -67,13 +71,15 @@ public class DishController {
      * this method REQUIRES to set Model's id
      * @return
      */
-    // TODO: decide a way to handle conflict between user, rest and dish
     @PutMapping
     // admin, rest(id)
     public R updateById(@RequestBody Dish dish) {
         if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
             return new R(dishService.updateById(dish));
-        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT) &&
+                userType.getUid().equals(restaurantService
+                        .getById(dish.getRestId())
+                        .getRestOwnerId())) {
             return new R(dishService.updateById(dish));
         }
         return new R (false, "You do not have right");
@@ -83,13 +89,15 @@ public class DishController {
      * Delete an element by its id
      * @return
      */
-    // TODO: conflict with get rest details rest(id)
     @DeleteMapping("/{id}")
     // admin, rest(id)
     public R deleteById(@PathVariable Integer id) {
         if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
             return new R(dishService.removeById(id));
-        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT) &&
+        userType.getUid().equals(restaurantService
+                .getById(dishService.getById(id).getRestId())
+                .getRestOwnerId())) {
             return new R(dishService.removeById(id));
         }
         return new R (false, "You do not have right");

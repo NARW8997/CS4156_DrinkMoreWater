@@ -17,4 +17,5 @@ public class Restaurant {
     private Integer restDislikes;
     private String restNumber;
     private String restSize;
+    private Integer restOwnerId;
 }

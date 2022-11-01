@@ -59,13 +59,13 @@ public class RestaurantController {
         return new R (true, restaurantService.selectRestDetailById(id));
     }
 
-    // TODO: decide which way to take for rest_owner
     @GetMapping("/{restId}/{rank}/topNSeller")
-    // admin rest(id) /// if we add foreign key from user table to rest table? rest_owner_uid?
+    // admin rest(id)
     public R getTopRankOrderedDishesByRestId(@PathVariable Integer restId, @PathVariable Integer rank) {
         if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
             return new R(true, restaurantService.getTopRankOrderedDishesByRestId(restId, rank));
-        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT) &&
+        userType.getUid().equals(restaurantService.getById(restId).getRestOwnerId())) {
             return new R(true, restaurantService.getTopRankOrderedDishesByRestId(restId, rank));
         }
         else {
@@ -160,14 +160,14 @@ public class RestaurantController {
         return new R (false, "You do not have right");
     }
 
-    // TODO: conflict with get rest details rest(id)
     @PutMapping("/restOwner")
     // admin rest(id)
     // it can change everything, including dislike & like
     public R updateByRestOwner(@RequestBody Restaurant restaurant) {
         if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
             return new R(restaurantService.updateExceptLikeAndDislike(restaurant) > 0);
-        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT) &&
+        userType.getUid().equals(restaurant.getRestOwnerId())) {
             return new R(restaurantService.updateExceptLikeAndDislike(restaurant) > 0);
         }
         return new R (false, "You do not have right");
@@ -177,13 +177,13 @@ public class RestaurantController {
      * Delete an element by its id
      * @return
      */
-    // TODO: conflict with get rest details rest(id)
     @DeleteMapping("/{id}")
     // admin, rest(id)
     public R deleteById(@PathVariable Integer id) {
         if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
             return new R(restaurantService.removeById(id));
-        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT) &&
+        userType.getUid().equals(restaurantService.getById(id).getRestOwnerId())) {
             return new R(restaurantService.removeById(id));
         }
         return new R (false, "You do not have right");

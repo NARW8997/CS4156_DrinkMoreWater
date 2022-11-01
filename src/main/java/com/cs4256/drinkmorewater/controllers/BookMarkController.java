@@ -6,6 +6,7 @@ import com.cs4256.drinkmorewater.controllers.utils.UserType;
 import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.models.Bookmark;
 import com.cs4256.drinkmorewater.services.impl.BookmarkServiceImpl;
+import com.cs4256.drinkmorewater.services.impl.RestaurantServiceImpl;
 import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,9 @@ public class BookMarkController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private RestaurantServiceImpl restaurantService;
 
     private UserType userType;
 
@@ -39,13 +43,15 @@ public class BookMarkController {
         return new R (false, "You do not have right");
     }
 
-    // TODO: decide which way to take for rest_owner
     @GetMapping("/rest/{restId}")
     // admin, rest(id)
     public R getByRestId(@PathVariable Integer restId) {
         if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
             return new R(true, bookMarkService.getByRestId(restId));
-        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT) &&
+        userType.getUid().equals(restaurantService
+                .getById(restId)
+                .getRestOwnerId())) {
             return new R(true, bookMarkService.getByRestId(restId));
         }
         return new R (false, "You do not have right");
