@@ -18,6 +18,7 @@ public class DishController {
      * @return
      */
     @GetMapping
+    // admin, uber eats, rest, user
     public R getAll() {
         return new R(true, dishService.list());
     }
@@ -27,6 +28,7 @@ public class DishController {
      * @return
      */
     @GetMapping("/{id}")
+    // admin, uber eats, rest, user
     public R getById(@PathVariable Integer id) {
         return new R(true, dishService.getById(id));
     }
@@ -36,6 +38,7 @@ public class DishController {
      * @return
      */
     @PostMapping
+    // admin, rest(id)
     public R insert(@RequestBody Dish dish) {
         return new R(dishService.save(dish));
     }
@@ -46,6 +49,7 @@ public class DishController {
      * @return
      */
     @PutMapping
+    // admin, rest(id)
     public R updateById(@RequestBody Dish dish) {
         return new R(dishService.updateById(dish));
     }
@@ -55,6 +59,7 @@ public class DishController {
      * @return
      */
     @DeleteMapping("/{id}")
+    // admin, rest(id)
     public R deleteById(@PathVariable Integer id) {
         return new R(dishService.removeById(id));
     }

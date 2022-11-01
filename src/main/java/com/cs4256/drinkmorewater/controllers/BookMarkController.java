@@ -15,22 +15,26 @@ public class BookMarkController {
     private BookmarkServiceImpl bookMarkService;
 
     @GetMapping("/user/{userId}")
+    // admin, user(id)
     public R getByUserId(@PathVariable Integer userId) {
         return new R(true, bookMarkService.getByUserId(userId));
     }
 
     @GetMapping("/rest/{restId}")
+    // admin, rest(id)
     public R getByRestId(@PathVariable Integer restId) {
         return new R(true, bookMarkService.getByRestId(restId));
     }
 
     @GetMapping("/countuser/{userId}")
+    // admin, user(id)
     public R countByUserId(@PathVariable Integer userId) {
 
         return new R(true, bookMarkService.countByUserId(userId));
     }
 
     @GetMapping("/countrest/{restId}")
+    // admin, user, rest
     public R countByRestId(@PathVariable Integer restId) {
         return new R(true, bookMarkService.countByRestId(restId));
     }
@@ -40,6 +44,7 @@ public class BookMarkController {
      * @return
      */
     @GetMapping
+    // admin
     public R getAll() {
         return new R(true, bookMarkService.list());
     }
@@ -49,6 +54,7 @@ public class BookMarkController {
      * @return
      */
     @GetMapping("/{id}")
+    // admin
     public R getById(@PathVariable Integer id) {
         return new R(true, bookMarkService.getById(id));
     }
@@ -58,6 +64,7 @@ public class BookMarkController {
      * @return
      */
     @PostMapping
+    // admin, user(id)
     public R insert(@RequestBody Bookmark mark) {
         return new R(bookMarkService.save(mark));
     }
@@ -68,6 +75,7 @@ public class BookMarkController {
      * @return
      */
     @PutMapping
+    // admin
     public R updateById(@RequestBody Bookmark mark) {
         return new R(bookMarkService.updateById(mark));
     }
@@ -77,6 +85,7 @@ public class BookMarkController {
      * @return
      */
     @DeleteMapping("/{id}")
+    // admin, user(id)
     public R deleteById(@PathVariable Integer id) {
         return new R(bookMarkService.removeById(id));
     }

@@ -20,6 +20,7 @@ public class RestaurantController {
      * @return
      */
     @GetMapping
+    // admin, uber eats, user, rest
     public R getAll() {
         return new R(true, restaurantService.list());
     }
@@ -29,41 +30,49 @@ public class RestaurantController {
      * @return
      */
     @GetMapping("/{id}")
+    // admin, uber eats, user, rest
     public R getById(@PathVariable Integer id) {
         return new R(true, restaurantService.getById(id));
     }
 
     @GetMapping("/details")
+    // uber eats, user, rest, admin
     public R getAllRestDetails() {
         return new R(true, restaurantService.selectAllRestDetail());
     }
 
     @GetMapping("/{id}/details")
+    // admin, user, uber eats, rest
     public R getRestDetailsById(@PathVariable Integer id) {
         return new R (true, restaurantService.selectRestDetailById(id));
     }
 
     @GetMapping("/{id}/{likes}/like")
+    // admin
     public R updateRestLikesByRestId(@PathVariable Integer id, @PathVariable Integer likes) {
         return new R (restaurantService.updateRestLikesByRestId(likes, id) > 0);
     }
 
     @GetMapping("/{id}/{dislikes}/dislike")
+    // admin
     public R updateRestDislikesByRestId(@PathVariable Integer id, @PathVariable Integer dislikes) {
         return new R (restaurantService.updateRestDislikesByRestId(dislikes, id) > 0);
     }
 
     @GetMapping("/{id}/like")
+    // admin, user
     public R updateRestLikesByRestIdBy1(@PathVariable Integer id) {
         return new R (restaurantService.updateRestLikesByRestIdBy1(id) > 0);
     }
 
     @GetMapping("/{id}/dislike")
+    // admin, user
     public R updateRestDislikesByRestIdBy1(@PathVariable Integer id) {
         return new R (restaurantService.updateRestDislikesByRestIdBy1(id) > 0);
     }
 
     @GetMapping("/popular")
+    // admin, user, uber eats, rest
     public R getPopularRestaurants() {
         return new R(true, restaurantService.getPopularRestaurants());
     }
@@ -81,6 +90,7 @@ public class RestaurantController {
      * @return
      */
     @PostMapping
+    // admin, rest
     public R insert(@RequestBody Restaurant restaurant) {
         return new R(restaurantService.save(restaurant));
     }
@@ -91,6 +101,7 @@ public class RestaurantController {
      * @return
      */
     @PutMapping
+    // admin, rest(id)
     public R updateById(@RequestBody Restaurant restaurant) {
         return new R(restaurantService.updateById(restaurant));
     }
@@ -100,6 +111,7 @@ public class RestaurantController {
      * @return
      */
     @DeleteMapping("/{id}")
+    // admin, rest(id)
     public R deleteById(@PathVariable Integer id) {
         return new R(restaurantService.removeById(id));
     }
