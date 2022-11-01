@@ -1,6 +1,8 @@
 package com.cs4256.drinkmorewater.controllers;
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
+import com.cs4256.drinkmorewater.controllers.utils.UserType;
+import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.models.OrderDish;
 import com.cs4256.drinkmorewater.models.User;
 import com.cs4256.drinkmorewater.services.impl.OrderDishServiceImpl;
@@ -15,6 +17,16 @@ public class OrderDishController {
     @Autowired
     private OrderDishServiceImpl orderDishService;
 
+    @Autowired
+    private UserServiceImpl userService;
+
+    private UserType userType;
+
+    @ModelAttribute
+    private void createUserType(@PathVariable Integer uid) {
+        userType = new UserType(uid, userService.getById(uid).getType());
+    }
+
     /**
      * return all element
      * @return
@@ -22,18 +34,31 @@ public class OrderDishController {
     @GetMapping
     // admin, uber eats
     public R getAll() {
-        return new R(true, orderDishService.list());
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN) ||
+        userType.getTypeEnum().equals(TypeEnum.ORDERAPP)) {
+            return new R(true, orderDishService.list());
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
      * return an element by its id
      * @return
      */
+    // TODO: conflict with get rest details rest(id)
     @GetMapping("/{id}")
-    // admin, uber eats, rest(id)
+    // admin, uber eats,   ///////conflict with get rest details rest(id)
     public R getById(@PathVariable Integer id) {
-        return new R(true, orderDishService.getById(id));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN) ||
+                userType.getTypeEnum().equals(TypeEnum.ORDERAPP)) {
+            return new R(true, orderDishService.getById(id));
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+            return new R(true, orderDishService.getById(id));
+        }
+        return new R (false, "You do not have right");
     }
+
+
 
     /**
      * add an element to the corresponding table
@@ -42,7 +67,11 @@ public class OrderDishController {
     @PostMapping
     // admin, uber eats
     public R insert(@RequestBody OrderDish orderDish) {
-        return new R(orderDishService.save(orderDish));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN) ||
+                userType.getTypeEnum().equals(TypeEnum.ORDERAPP)) {
+            return new R(orderDishService.save(orderDish));
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -53,7 +82,10 @@ public class OrderDishController {
     @PutMapping
     // admin
     public R updateById(@RequestBody OrderDish orderDish) {
-        return new R(orderDishService.updateById(orderDish));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(orderDishService.updateById(orderDish));
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -63,6 +95,9 @@ public class OrderDishController {
     @DeleteMapping("/{id}")
     // admin
     public R deleteById(@PathVariable Integer id) {
-        return new R(orderDishService.removeById(id));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(orderDishService.removeById(id));
+        }
+        return new R (false, "You do not have right");
     }
 }

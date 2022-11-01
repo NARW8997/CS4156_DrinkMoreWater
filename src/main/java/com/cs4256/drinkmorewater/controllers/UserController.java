@@ -48,22 +48,19 @@ Restaurants (owners): 3
     @GetMapping("/{id}")
     public R getById(@PathVariable Integer id) {
         // admin, user(id), rest
-//    public R getById(@PathVariable Integer id) {
-//        if (type.equals(TypeEnum.ADMIN.getType())) {
-//            return new R(true, userService.getById(id));
-//        } else if (type.equals(TypeEnum.CUSTOMER.getType()) &&
-//                uid.equals(id)) {
-//            return new R(true, userService.getById(id));
-//        }
-//        else {
-//            return new R(false, "You do not have right");
-//        }
-//    }
-        if (type.equals(TypeEnum.ORDERAPP.getType())) {
+        if (type.equals(TypeEnum.ADMIN.getType())) {
+            return new R(true, userService.getById(id));
+        } else if (type.equals(TypeEnum.CUSTOMER.getType()) &&
+                uid.equals(id)) {
+            return new R(true, userService.getById(id));
+        } else if (type.equals(TypeEnum.RESTAURANT.getType()) &&
+                uid.equals(id)) {
+            return new R(true, userService.getById(id));
+        } else {
             return new R(false, "You do not have right");
         }
-        return new R(true, userService.getById(id));
     }
+
 
     /**
      * add an element to the corresponding table

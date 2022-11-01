@@ -1,6 +1,8 @@
 package com.cs4256.drinkmorewater.controllers;
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
+import com.cs4256.drinkmorewater.controllers.utils.UserType;
+import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.models.Restaurant;
 import com.cs4256.drinkmorewater.models.User;
 import com.cs4256.drinkmorewater.services.impl.RestaurantServiceImpl;
@@ -9,11 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/restaurant")
+@RequestMapping("{uid}/restaurant")
 public class RestaurantController {
 
     @Autowired
     private RestaurantServiceImpl restaurantService;
+
+    @Autowired
+    private UserServiceImpl userService;
+
+    private UserType userType;
+
+    @ModelAttribute
+    private void createUserType(@PathVariable Integer uid) {
+        userType = new UserType(uid, userService.getById(uid).getType());
+    }
 
     /**
      * return all element
@@ -47,28 +59,58 @@ public class RestaurantController {
         return new R (true, restaurantService.selectRestDetailById(id));
     }
 
+    // TODO: decide which way to take for rest_owner
+    @GetMapping("/{restId}/{rank}/topNSeller")
+    // admin rest(id) /// if we add foreign key from user table to rest table? rest_owner_uid?
+    public R getTopRankOrderedDishesByRestId(@PathVariable Integer restId, @PathVariable Integer rank) {
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(true, restaurantService.getTopRankOrderedDishesByRestId(restId, rank));
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+            return new R(true, restaurantService.getTopRankOrderedDishesByRestId(restId, rank));
+        }
+        else {
+            return new R (false, "You do not have right");
+        }
+    }
+
     @GetMapping("/{id}/{likes}/like")
     // admin
     public R updateRestLikesByRestId(@PathVariable Integer id, @PathVariable Integer likes) {
-        return new R (restaurantService.updateRestLikesByRestId(likes, id) > 0);
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R (restaurantService.updateRestLikesByRestId(likes, id) > 0);
+        }
+        return new R (false, "You do not have right");
     }
 
     @GetMapping("/{id}/{dislikes}/dislike")
     // admin
     public R updateRestDislikesByRestId(@PathVariable Integer id, @PathVariable Integer dislikes) {
-        return new R (restaurantService.updateRestDislikesByRestId(dislikes, id) > 0);
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R (restaurantService.updateRestDislikesByRestId(dislikes, id) > 0);
+
+        }
+        return new R (false, "You do not have right");
     }
 
     @GetMapping("/{id}/like")
     // admin, user
     public R updateRestLikesByRestIdBy1(@PathVariable Integer id) {
-        return new R (restaurantService.updateRestLikesByRestIdBy1(id) > 0);
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN) ||
+        userType.getTypeEnum().equals(TypeEnum.CUSTOMER)) {
+            return new R (restaurantService.updateRestLikesByRestIdBy1(id) > 0);
+
+        }
+        return new R (false, "You do not have right");
     }
 
     @GetMapping("/{id}/dislike")
     // admin, user
     public R updateRestDislikesByRestIdBy1(@PathVariable Integer id) {
-        return new R (restaurantService.updateRestDislikesByRestIdBy1(id) > 0);
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN) ||
+                userType.getTypeEnum().equals(TypeEnum.CUSTOMER)) {
+            return new R(restaurantService.updateRestDislikesByRestIdBy1(id) > 0);
+        }
+        return new R (false, "You do not have right");
     }
 
     @GetMapping("/popular")
@@ -77,22 +119,30 @@ public class RestaurantController {
         return new R(true, restaurantService.getPopularRestaurants());
     }
 
-//    @PutMapping("/{userId}/{restId}/mark/")
-//    public R updateMarkByUserIdBy1() {
-//
-//    }
-//
-//    @PutMapping("/{userId}/{restId}/unmark")
-//    public
-
     /**
      * add an element to the corresponding table
      * @return
      */
     @PostMapping
-    // admin, rest
+    // admin
+    // including dislike & like number
     public R insert(@RequestBody Restaurant restaurant) {
-        return new R(restaurantService.save(restaurant));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(restaurantService.save(restaurant));
+        }
+        return new R (false, "You do not have right");
+    }
+
+    // TODO: conflict with get rest details rest(id)
+    @PostMapping("/restOwner")
+    // not including dislike & like number
+    public R insertByRestOwner(@RequestBody Restaurant restaurant) {
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(restaurantService.insertExceptLikeAndDislike(restaurant) > 0);
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+            return new R(restaurantService.insertExceptLikeAndDislike(restaurant) > 0);
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -101,18 +151,41 @@ public class RestaurantController {
      * @return
      */
     @PutMapping
-    // admin, rest(id)
+    // admin
+    // it can change everything, including dislike & like
     public R updateById(@RequestBody Restaurant restaurant) {
-        return new R(restaurantService.updateById(restaurant));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(restaurantService.updateById(restaurant));
+        }
+        return new R (false, "You do not have right");
+    }
+
+    // TODO: conflict with get rest details rest(id)
+    @PutMapping("/restOwner")
+    // admin rest(id)
+    // it can change everything, including dislike & like
+    public R updateByRestOwner(@RequestBody Restaurant restaurant) {
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(restaurantService.updateExceptLikeAndDislike(restaurant) > 0);
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+            return new R(restaurantService.updateExceptLikeAndDislike(restaurant) > 0);
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
      * Delete an element by its id
      * @return
      */
+    // TODO: conflict with get rest details rest(id)
     @DeleteMapping("/{id}")
     // admin, rest(id)
     public R deleteById(@PathVariable Integer id) {
-        return new R(restaurantService.removeById(id));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(restaurantService.removeById(id));
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+            return new R(restaurantService.removeById(id));
+        }
+        return new R (false, "You do not have right");
     }
 }

@@ -12,7 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -121,6 +120,21 @@ public class RestaurantServiceImpl extends ServiceImpl<RestaurantMapper, Restaur
     @Override
     public Integer updateRestDislikesByRestIdBy1(Integer restId) {
         return restaurantMapper.updateRestDislikesByRestIdBy1(restId);
+    }
+
+    @Override
+    public Integer insertExceptLikeAndDislike(Restaurant restaurant) {
+        return restaurantMapper.insertExceptLikeAndDislike(restaurant);
+    }
+
+    @Override
+    public Integer updateExceptLikeAndDislike(Restaurant restaurant) {
+        return restaurantMapper.updateExceptLikeAndDislike(restaurant);
+    }
+
+    @Override
+    public List<TopRankDish> getTopRankOrderedDishesByRestId(Integer restId, Integer rank) {
+        return restaurantMapper.selectTopRankOrderedDishesByRestId(restId, rank);
     }
 
 

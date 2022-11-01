@@ -2,8 +2,11 @@ package com.cs4256.drinkmorewater.controllers;
 
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
+import com.cs4256.drinkmorewater.controllers.utils.UserType;
+import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.models.Bookmark;
 import com.cs4256.drinkmorewater.services.impl.BookmarkServiceImpl;
+import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,29 +17,61 @@ public class BookMarkController {
     @Autowired
     private BookmarkServiceImpl bookMarkService;
 
+    @Autowired
+    private UserServiceImpl userService;
+
+    private UserType userType;
+
+    @ModelAttribute
+    private void createUserType(@PathVariable Integer uid) {
+        userType = new UserType(uid, userService.getById(uid).getType());
+    }
+
     @GetMapping("/user/{userId}")
     // admin, user(id)
     public R getByUserId(@PathVariable Integer userId) {
-        return new R(true, bookMarkService.getByUserId(userId));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(true, bookMarkService.getByUserId(userId));
+        } else if (userType.getTypeEnum().equals(TypeEnum.CUSTOMER) &&
+        userType.getUid().equals(userId)) {
+            return new R(true, bookMarkService.getByUserId(userId));
+        }
+        return new R (false, "You do not have right");
     }
 
+    // TODO: decide which way to take for rest_owner
     @GetMapping("/rest/{restId}")
     // admin, rest(id)
     public R getByRestId(@PathVariable Integer restId) {
-        return new R(true, bookMarkService.getByRestId(restId));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(true, bookMarkService.getByRestId(restId));
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+            return new R(true, bookMarkService.getByRestId(restId));
+        }
+        return new R (false, "You do not have right");
     }
 
     @GetMapping("/countuser/{userId}")
     // admin, user(id)
     public R countByUserId(@PathVariable Integer userId) {
-
-        return new R(true, bookMarkService.countByUserId(userId));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(true, bookMarkService.countByUserId(userId));
+        } else if (userType.getTypeEnum().equals(TypeEnum.CUSTOMER) &&
+                userType.getUid().equals(userId)) {
+            return new R(true, bookMarkService.countByUserId(userId));
+        }
+        return new R (false, "You do not have right");
     }
 
     @GetMapping("/countrest/{restId}")
     // admin, user, rest
     public R countByRestId(@PathVariable Integer restId) {
-        return new R(true, bookMarkService.countByRestId(restId));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(true, bookMarkService.countByRestId(restId));
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT)) {
+            return new R(true, bookMarkService.countByRestId(restId));
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -46,7 +81,10 @@ public class BookMarkController {
     @GetMapping
     // admin
     public R getAll() {
-        return new R(true, bookMarkService.list());
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(true, bookMarkService.list());
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -56,7 +94,10 @@ public class BookMarkController {
     @GetMapping("/{id}")
     // admin
     public R getById(@PathVariable Integer id) {
-        return new R(true, bookMarkService.getById(id));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(true, bookMarkService.getById(id));
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -66,7 +107,13 @@ public class BookMarkController {
     @PostMapping
     // admin, user(id)
     public R insert(@RequestBody Bookmark mark) {
-        return new R(bookMarkService.save(mark));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(bookMarkService.save(mark));
+        } else if (userType.getTypeEnum().equals(TypeEnum.CUSTOMER) &&
+                userType.getUid().equals(mark.getUserId())) {
+            return new R(bookMarkService.save(mark));
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -77,7 +124,10 @@ public class BookMarkController {
     @PutMapping
     // admin
     public R updateById(@RequestBody Bookmark mark) {
-        return new R(bookMarkService.updateById(mark));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(bookMarkService.updateById(mark));
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -87,7 +137,13 @@ public class BookMarkController {
     @DeleteMapping("/{id}")
     // admin, user(id)
     public R deleteById(@PathVariable Integer id) {
-        return new R(bookMarkService.removeById(id));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(bookMarkService.removeById(id));
+        } else if (userType.getTypeEnum().equals(TypeEnum.CUSTOMER) &&
+                userType.getUid().equals(id)) {
+            return new R(bookMarkService.removeById(id));
+        }
+        return new R (false, "You do not have right");
     }
 
 }

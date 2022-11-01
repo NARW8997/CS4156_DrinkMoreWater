@@ -1,5 +1,6 @@
 package com.cs4256.drinkmorewater;
 
+import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.mapper.UserMapper;
 import com.cs4256.drinkmorewater.models.User;
 import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
@@ -30,7 +31,7 @@ public class UserTests {
     public void testGetById() {
         int testId = 1;
 
-        User retUser = new User(1, "John", "Doe", "jd123@gmail.com", "15874678", 1);
+        User retUser = new User(1, "John", "Doe", "jd123@gmail.com", "15874678", TypeEnum.CUSTOMER);
 
         Mockito.when(userMapper.selectById(testId)).thenReturn(retUser);
 
@@ -40,8 +41,8 @@ public class UserTests {
     @Test
     public void testGetAll() {
         List<User> userList = Arrays.asList(
-                new User(1, "John", "Doe", "jd123@gmail.com", "15874678", 1),
-                new User(2, "Jane", "Nieh", "jn123@gmail.com", "15874630", 1));
+                new User(1, "John", "Doe", "jd123@gmail.com", "15874678", TypeEnum.CUSTOMER),
+                new User(2, "Jane", "Nieh", "jn123@gmail.com", "15874630", TypeEnum.CUSTOMER));
 
         Mockito.when(userMapper.selectList(null)).thenReturn(userList);
 
@@ -50,7 +51,7 @@ public class UserTests {
 
     @Test
     public void testUpdate() {
-        User updateUser = new User(1, "Jason", "Nieh", "jn123@gmail.com", "15874678", 1);
+        User updateUser = new User(1, "Jason", "Nieh", "jn123@gmail.com", "15874678", TypeEnum.CUSTOMER);
 
         Mockito.when(userMapper.updateById(updateUser)).thenReturn(1);
 
@@ -59,7 +60,7 @@ public class UserTests {
 
     @Test
     public void testInvalidUpdate() {
-        User updateUser = new User(-1, "Jason", "Nieh", "jn123@gmail.com", "15874678", 1);
+        User updateUser = new User(-1, "Jason", "Nieh", "jn123@gmail.com", "15874678", TypeEnum.CUSTOMER);
 
         Mockito.when(userMapper.updateById(updateUser)).thenReturn(0);
 
@@ -68,7 +69,7 @@ public class UserTests {
 
     @Test
     public void testAddUser() {
-        User userToAdd = new User(1, "Jason", "Nieh", "jn123@gmail.com", "15874678", 1);
+        User userToAdd = new User(1, "Jason", "Nieh", "jn123@gmail.com", "15874678", TypeEnum.CUSTOMER);
 
         Mockito.when(userMapper.insert(userToAdd)).thenReturn(1);
 
