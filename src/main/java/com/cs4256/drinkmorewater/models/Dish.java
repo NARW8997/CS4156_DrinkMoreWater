@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-/* serve and dish haven't included in service and controller yet */
 @Data
 @NoArgsConstructor
 public class Dish {

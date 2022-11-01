@@ -18,6 +18,7 @@ public class OrderProfileController {
      * @return
      */
     @GetMapping
+    // admin, uber eats
     public R getAll() {
         return new R(true, orderProfileService.list());
     }
@@ -27,6 +28,7 @@ public class OrderProfileController {
      * @return
      */
     @GetMapping("/{id}")
+    // admin, uber eats, rest(id)
     public R getById(@PathVariable Integer id) {
         return new R(true, orderProfileService.getById(id));
     }
@@ -36,6 +38,7 @@ public class OrderProfileController {
      * @return
      */
     @PostMapping
+    // admin, uber eats
     public R insert(@RequestBody OrderProfile orderProfile) {
         return new R(orderProfileService.save(orderProfile));
     }
@@ -46,6 +49,7 @@ public class OrderProfileController {
      * @return
      */
     @PutMapping
+    // admin
     public R updateById(@RequestBody OrderProfile orderProfile) {
         return new R(orderProfileService.updateById(orderProfile));
     }
@@ -55,6 +59,7 @@ public class OrderProfileController {
      * @return
      */
     @DeleteMapping("/{id}")
+    // admin
     public R deleteById(@PathVariable Integer id) {
         return new R(orderProfileService.removeById(id));
     }

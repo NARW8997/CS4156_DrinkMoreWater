@@ -12,12 +12,17 @@ public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
-
+/* Admin: ALL 0
+users : 1
+Order_app: uber eats 2
+Restaurants (owners): 3
+*/
     /**
      * return all element
      * @return
      */
     @GetMapping
+    // admin
     public R getAll() {
         return new R(true, userService.list());
     }
@@ -27,6 +32,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/{id}")
+    // admin, user(id)
     public R getById(@PathVariable Integer id) {
         return new R(true, userService.getById(id));
     }
@@ -36,6 +42,7 @@ public class UserController {
      * @return
      */
     @PostMapping
+    // admin, user
     public R insert(@RequestBody User user) {
         return new R(userService.save(user));
     }
@@ -46,6 +53,7 @@ public class UserController {
      * @return
      */
     @PutMapping
+    // admin, user(id)
     public R updateById(@RequestBody User user) {
         return new R(userService.updateById(user));
     }
@@ -55,6 +63,7 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/{id}")
+    // admin, user(id)
     public R deleteById(@PathVariable Integer id) {
         return new R(userService.removeById(id));
     }
