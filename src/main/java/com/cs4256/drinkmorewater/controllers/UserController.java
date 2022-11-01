@@ -1,22 +1,33 @@
 package com.cs4256.drinkmorewater.controllers;
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
+import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.models.User;
 import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/{uid}/user")
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    private Integer type;
+    private Integer uid;
+
 /* Admin: ALL 0
 users : 1
 Order_app: uber eats 2
 Restaurants (owners): 3
 */
+    @ModelAttribute
+    private void getUserType(@PathVariable Integer uid) {
+        this.uid = uid;
+        type = userService.getById(uid).getType().getType();
+    }
+
     /**
      * return all element
      * @return
@@ -24,7 +35,10 @@ Restaurants (owners): 3
     @GetMapping
     // admin
     public R getAll() {
-        return new R(true, userService.list());
+        if (type.equals(TypeEnum.ADMIN.getType())) {
+            return new R(true, userService.list());
+        }
+        return new R(false, "You do not have right");
     }
 
     /**
@@ -32,8 +46,22 @@ Restaurants (owners): 3
      * @return
      */
     @GetMapping("/{id}")
-    // admin, user(id)
     public R getById(@PathVariable Integer id) {
+        // admin, user(id), rest
+//    public R getById(@PathVariable Integer id) {
+//        if (type.equals(TypeEnum.ADMIN.getType())) {
+//            return new R(true, userService.getById(id));
+//        } else if (type.equals(TypeEnum.CUSTOMER.getType()) &&
+//                uid.equals(id)) {
+//            return new R(true, userService.getById(id));
+//        }
+//        else {
+//            return new R(false, "You do not have right");
+//        }
+//    }
+        if (type.equals(TypeEnum.ORDERAPP.getType())) {
+            return new R(false, "You do not have right");
+        }
         return new R(true, userService.getById(id));
     }
 
@@ -42,9 +70,12 @@ Restaurants (owners): 3
      * @return
      */
     @PostMapping
-    // admin, user
+    // admin
     public R insert(@RequestBody User user) {
-        return new R(userService.save(user));
+        if (type.equals(TypeEnum.ADMIN.getType())) {
+            return new R(userService.save(user));
+        }
+        return new R(false);
     }
 
     /**
@@ -54,8 +85,16 @@ Restaurants (owners): 3
      */
     @PutMapping
     // admin, user(id)
-    public R updateById(@RequestBody User user) {
-        return new R(userService.updateById(user));
+    public R updateById(@PathVariable Integer uid, @RequestBody User user) {
+        if (type.equals(TypeEnum.ADMIN.getType())) {
+            return new R(userService.updateById(user));
+
+        }
+        else if (type.equals(TypeEnum.CUSTOMER.getType()) &&
+                uid.equals(user.getUserId())) {
+            return new R(userService.updateById(user));
+        }
+        return new R(false);
     }
 
     /**
@@ -65,6 +104,14 @@ Restaurants (owners): 3
     @DeleteMapping("/{id}")
     // admin, user(id)
     public R deleteById(@PathVariable Integer id) {
-        return new R(userService.removeById(id));
+        if (type.equals(TypeEnum.ADMIN.getType())) {
+            return new R(userService.removeById(id));
+
+        }
+        else if (type.equals(TypeEnum.CUSTOMER.getType()) &&
+                uid.equals(id)) {
+            return new R(userService.removeById(id));
+        }
+        return new R(false);
     }
 }
