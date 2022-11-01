@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class RestaurantDetail {
     private Integer restId;
     private String restLocation;

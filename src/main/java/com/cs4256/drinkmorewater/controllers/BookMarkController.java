@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/bookmark")
+@RequestMapping("/{uid}/bookmark")
 public class BookMarkController {
     @Autowired
     private BookmarkServiceImpl bookMarkService;
@@ -140,7 +140,7 @@ public class BookMarkController {
         if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
             return new R(bookMarkService.removeById(id));
         } else if (userType.getTypeEnum().equals(TypeEnum.CUSTOMER) &&
-                userType.getUid().equals(id)) {
+                userType.getUid().equals(bookMarkService.getById(id).getUserId())) {
             return new R(bookMarkService.removeById(id));
         }
         return new R (false, "You do not have right");

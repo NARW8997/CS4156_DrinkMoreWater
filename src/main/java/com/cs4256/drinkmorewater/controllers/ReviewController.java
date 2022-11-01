@@ -112,7 +112,7 @@ public class ReviewController {
         if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
             return new R(reviewService.removeById(id));
         } else if (userType.getTypeEnum().equals(TypeEnum.CUSTOMER) &&
-        userType.getUid().equals(id)) {
+        userType.getUid().equals(reviewService.getById(id).getUserId())) {
             return new R(reviewService.removeById(id));
         }
         else {

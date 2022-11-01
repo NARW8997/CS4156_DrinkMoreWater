@@ -1,6 +1,7 @@
 package com.cs4256.drinkmorewater.models;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,4 +21,5 @@ public class Review {
     private String content;
     private Integer restId;
     private Integer userId;
+
 }
