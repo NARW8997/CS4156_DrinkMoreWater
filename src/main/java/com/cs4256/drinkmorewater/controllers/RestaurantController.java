@@ -33,10 +33,48 @@ public class RestaurantController {
         return new R(true, restaurantService.getById(id));
     }
 
+    @GetMapping("/details")
+    public R getAllRestDetails() {
+        return new R(true, restaurantService.selectAllRestDetail());
+    }
+
+    @GetMapping("/{id}/details")
+    public R getRestDetailsById(@PathVariable Integer id) {
+        return new R (true, restaurantService.selectRestDetailById(id));
+    }
+
+    @GetMapping("/{id}/{likes}/like")
+    public R updateRestLikesByRestId(@PathVariable Integer id, @PathVariable Integer likes) {
+        return new R (restaurantService.updateRestLikesByRestId(likes, id) > 0);
+    }
+
+    @GetMapping("/{id}/{dislikes}/dislike")
+    public R updateRestDislikesByRestId(@PathVariable Integer id, @PathVariable Integer dislikes) {
+        return new R (restaurantService.updateRestDislikesByRestId(dislikes, id) > 0);
+    }
+
+    @GetMapping("/{id}/like")
+    public R updateRestLikesByRestIdBy1(@PathVariable Integer id) {
+        return new R (restaurantService.updateRestLikesByRestIdBy1(id) > 0);
+    }
+
+    @GetMapping("/{id}/dislike")
+    public R updateRestDislikesByRestIdBy1(@PathVariable Integer id) {
+        return new R (restaurantService.updateRestDislikesByRestIdBy1(id) > 0);
+    }
+
     @GetMapping("/popular")
     public R getPopularRestaurants() {
         return new R(true, restaurantService.getPopularRestaurants());
     }
+
+//    @PutMapping("/{userId}/{restId}/mark/")
+//    public R updateMarkByUserIdBy1() {
+//
+//    }
+//
+//    @PutMapping("/{userId}/{restId}/unmark")
+//    public
 
     /**
      * add an element to the corresponding table

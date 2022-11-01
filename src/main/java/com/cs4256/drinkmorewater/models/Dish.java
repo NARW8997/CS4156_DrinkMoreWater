@@ -2,11 +2,13 @@ package com.cs4256.drinkmorewater.models;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 /* serve and dish haven't included in service and controller yet */
 @Data
+@NoArgsConstructor
 public class Dish {
     public Dish(Integer dishId, String dishDescription, String flavor, String dishName, String serveSize, Integer restId) {
         this.dishId = dishId;

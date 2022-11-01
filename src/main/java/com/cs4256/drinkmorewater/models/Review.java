@@ -2,10 +2,12 @@ package com.cs4256.drinkmorewater.models;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 public class Review {
     public Review(Integer reviewId, String content, Integer restId, Integer userId) {
         this.reviewId = reviewId;
