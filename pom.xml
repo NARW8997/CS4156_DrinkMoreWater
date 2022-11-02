@@ -10,6 +10,7 @@
     </parent>
     <groupId>com.cs4256</groupId>
     <artifactId>DrinkMoreWater</artifactId>
+    <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>DrinkMoreWater</name>
     <description>DrinkMoreWater</description>
