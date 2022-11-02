@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Restaurant {
     @TableId("rest_id")
-    private Integer restId;
-    private String restLocation;
-    private String restName;
-    private Integer restLikes;
-    private Integer restDislikes;
-    private String restNumber;
-    private String restSize;
-    private Integer restOwnerId;
+    protected Integer restId;
+    protected String restLocation;
+    protected String restName;
+    protected Integer restLikes;
+    protected Integer restDislikes;
+    protected String restNumber;
+    protected String restSize;
+    protected Integer restOwnerId;
 }

@@ -11,6 +11,7 @@ import java.util.List;
 public interface IRestaurantService extends IService<Restaurant>  {
     List<RestaurantDetail> selectAllRestDetail();
 
+
     RestaurantDetail selectRestDetailById(Integer restId);
 
     Integer updateRestLikesByRestId(Integer restLikes, Integer restId);
