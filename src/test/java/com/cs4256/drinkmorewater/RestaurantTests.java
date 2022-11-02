@@ -44,7 +44,7 @@ public class RestaurantTests {
         int testId = 1;
 
         Restaurant retRestaurant = new Restaurant(1, "2957 Broadway, New York, NY 10025",
-                "Shake Shack",0, 0, "900-222-1345", "medium");
+                "Shake Shack",0, 0, "900-222-1345", "medium", 1);
 
         Mockito.when(restaurantMapper.selectById(testId)).thenReturn(retRestaurant);
 
@@ -55,9 +55,9 @@ public class RestaurantTests {
     public void testGetAll() {
         List<Restaurant> restaurantList = Arrays.asList(
                 new Restaurant(1, "2957 Broadway, New York, NY 10025", "Shake Shack",
-                        0, 0, "900-222-1345", "medium"),
+                        0, 0, "900-222-1345", "medium", 1),
                 new Restaurant(2, "2880 Broadway, New York, NY 10025", "Tom's", 1,
-                        0, "809-223-4124", "small"));
+                        0, "809-223-4124", "small", 1));
 
         Mockito.when(restaurantMapper.selectList(null)).thenReturn(restaurantList);
 
@@ -68,9 +68,9 @@ public class RestaurantTests {
     public void testGetPopular() {
         List<Restaurant> restaurantList = Arrays.asList(
                 new Restaurant(1, "2957 Broadway, New York, NY 10025", "Shake Shack",
-                        2, 1, "900-222-1345", "medium"),
+                        2, 1, "900-222-1345", "medium", 1),
                 new Restaurant(2, "2880 Broadway, New York, NY 10025", "Tom's", 1,
-                        0, "809-223-4124", "small"));
+                        0, "809-223-4124", "small", 1));
         QueryWrapper<Review> qw1 = new QueryWrapper<Review>();
         QueryWrapper<Review> qw2 = new QueryWrapper<Review>();
         qw1.ge("rest_id", 1);
@@ -113,7 +113,7 @@ public class RestaurantTests {
     @Test
     public void testUpdate() {
         Restaurant updateRestaurant = new Restaurant(1, "2957 Broadway, New York, NY 10025",
-                "Shake Shack", 0, 0, "900-222-1345", "medium");
+                "Shake Shack", 0, 0, "900-222-1345", "medium", 1);
 
         Mockito.when(restaurantMapper.updateById(updateRestaurant)).thenReturn(1);
 
@@ -123,7 +123,7 @@ public class RestaurantTests {
     @Test
     public void testInvalidUpdate() {
         Restaurant updateRestaurant = new Restaurant(-1, "2957 Broadway, New York, NY 10025",
-                "Shake Shack", 0, 0, "900-222-1345", "medium");
+                "Shake Shack", 0, 0, "900-222-1345", "medium", 1);
 
         Mockito.when(restaurantMapper.updateById(updateRestaurant)).thenReturn(0);
 
@@ -133,7 +133,7 @@ public class RestaurantTests {
     @Test
     public void testAddRestaurant() {
         Restaurant userToAdd = new Restaurant(2, "2957 Broadway, New York, NY 10025",
-                "Shake Shack", 0, 0, "900-222-1345", "medium");
+                "Shake Shack", 0, 0, "900-222-1345", "medium", 1);
 
         Mockito.when(restaurantMapper.insert(userToAdd)).thenReturn(2);
 
