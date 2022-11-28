@@ -50,18 +50,10 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 1. Client
-    * The three different types of clients that can use our service are listed below:  
-    * 1. customers who want to rate and write reviews for restaurants they have visited can access our restaurant and review database, and utilize the functionality  
-    of our calls such as add/review or add/rating. A real life example of such an application would be Yelp, an app where people post reviews and share their   
-    dining experience of certain restaurants.   
-    * 2. customers who’d like to check the meals served by a restaurant and order food can access our restaurant, orderProfile and orderDish database, which   
-    contains information of dishes and serving time. Customers can either look at the menu and get the restaurant number to order through phone calls, or they   
-    can order online with the frontend services provided by the application they are using. A real life example would be Uber eats, where people look for their  
-    desired food from different restaurants and make orders.  
-    * 3. restaurant owners who want to advertise their restaurants and be informed about their bestsellers and serving qualities can access our restaurant, review,  
-    orderProfile and orderDish database and get the dish selling information corresponding to their restaurant id, which may allow them to change their market plan  
-    to attract more customers and exposures, especially with our restaurant recommendation algorithm (which can be retrieved with GET restaurant/popular). A real   
-    life example of this type of application is Google maps, which contains functionality as I described above when you get in their “restaurant” feature.  
+* The three different types of clients that can use our service are listed below:  
+* 1. Application for customers who want to rate and write reviews for restaurants they have visited can access our bookmark and review database, and utilize the functionality of our API calls to save their favorite restaurants, to write and update their reviews and give likes and dislikes to certain restaurants. A real life example of such an application would be Yelp, an app where people post reviews and share their dining experience of certain restaurants.   
+* 2. Applications for food ordering services who’d like to allow people make orders and also keep track of ordering information can access our orderProfile and orderDish databases, which contains orders of restaurants and of users, and specific dishes ordered in one order and total spending. A real life example would be Uber eats, a platform for food ordering services.
+* 3. restaurant owners who want to advertise their restaurants and be informed about their bestsellers and serving qualities can access our restaurant, review, orderProfile and orderDish databases and get the order and dish selling information corresponding to their restaurant id, which may allow them to change their serving plans and logistics to make more profit. A real life example of this type of application is Plate IQ, which allow companies to keep track of their selling informations.
     
 
 
