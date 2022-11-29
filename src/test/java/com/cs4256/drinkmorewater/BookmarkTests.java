@@ -2,6 +2,7 @@ package com.cs4256.drinkmorewater;
 
 import com.cs4256.drinkmorewater.mapper.BookmarkMapper;
 import com.cs4256.drinkmorewater.models.Bookmark;
+import com.cs4256.drinkmorewater.models.UserRest;
 import com.cs4256.drinkmorewater.services.impl.BookmarkServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,49 @@ public class BookmarkTests {
         Mockito.when(bookmarkMapper.selectById(testId)).thenReturn(retBookmark);
 
         assertEquals(bookmarkServiceImpl.getById(testId), retBookmark);
+    }
+
+    @Test
+    public void testGetByRestId() {
+        int restId = 1;
+        List<UserRest> userNames = Arrays.asList(
+                new UserRest("John", "Doe"),
+                new UserRest("Jane", "Dane"));
+        Mockito.when(bookmarkMapper.selectByRestId(restId)).thenReturn(userNames);
+
+        assertNotNull(bookmarkServiceImpl.getByRestId(restId));
+    }
+
+    @Test
+    public void testGetByUserId() {
+        int userId = 1;
+        List<UserRest> userNames = Arrays.asList(
+                new UserRest("John", "Doe"),
+                new UserRest("Jane", "Dane"));
+
+        Mockito.when(bookmarkMapper.selectByUserId(userId)).thenReturn(userNames);
+
+        assertNotNull(bookmarkServiceImpl.getByUserId(userId));
+    }
+
+    @Test
+    public void testCountByRestId() {
+        int restId = 1;
+        int count = 10;
+
+        Mockito.when(bookmarkMapper.countByRestId(restId)).thenReturn(count);
+
+        assertNotNull(bookmarkServiceImpl.countByRestId(restId));
+    }
+
+    @Test
+    public void testCountByUserId() {
+        int userId = 1;
+        int count = 10;
+
+        Mockito.when(bookmarkMapper.countByUserId(userId)).thenReturn(count);
+
+        assertNotNull(bookmarkServiceImpl.countByUserId(userId));
     }
 
     @Test

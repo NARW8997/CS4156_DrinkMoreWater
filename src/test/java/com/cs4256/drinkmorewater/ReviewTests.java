@@ -2,6 +2,7 @@ package com.cs4256.drinkmorewater;
 
 import com.cs4256.drinkmorewater.mapper.ReviewMapper;
 import com.cs4256.drinkmorewater.models.Review;
+import com.cs4256.drinkmorewater.models.UserRestReview;
 import com.cs4256.drinkmorewater.services.impl.ReviewServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,32 @@ public class ReviewTests {
         Mockito.when(reviewMapper.selectById(testId)).thenReturn(retReview);
 
         assertEquals(reviewServiceImpl.getById(testId), retReview);
+    }
+
+    @Test
+    public void testGetUserRestReviewByUserId() {
+        int userId = 1;
+        List<UserRestReview> urReviews = Arrays.asList(
+                new UserRestReview("John", "restName", "Good Restaurant"),
+                new UserRestReview("John", "rest2", "Bad Restaurant")
+        );
+
+        Mockito.when(reviewMapper.selectUserRestReviewByUserId(userId)).thenReturn(urReviews);
+
+        assertNotNull(reviewServiceImpl.selectUserRestReviewByUserId(userId));
+    }
+
+    @Test
+    public void testGetUserRestReviewByRestId() {
+        int restId = 1;
+        List<UserRestReview> urReviews = Arrays.asList(
+                new UserRestReview("John", "rest1", "Good Restaurant"),
+                new UserRestReview("Joe", "rest1", "Bad Restaurant")
+        );
+
+        Mockito.when(reviewMapper.selectUserRestReviewByRestId(restId)).thenReturn(urReviews);
+
+        assertNotNull(reviewServiceImpl.selectUserRestReviewByRestId(restId));
     }
 
     @Test

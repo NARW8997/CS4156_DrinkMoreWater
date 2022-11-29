@@ -39,6 +39,30 @@ public class RevenueTests {
     }
 
     @Test
+    public void testGetByRestId() {
+        int restId = 1;
+        List<Revenue> retRevs = Arrays.asList(
+                new Revenue(1, 2021, 100, 200, 300, 200, 1),
+                new Revenue(2, 2021, 100, 200, 300, 200, 1)
+        );
+
+        Mockito.when(revenueMapper.selectRevenueByRestId(restId)).thenReturn(retRevs);
+
+        assertNotNull(revenueServiceImpl.getRevenueByRestId(restId));
+    }
+
+    @Test
+    public void testGetByRestIdAndYear() {
+        int restId = 1;
+        int year = 2021;
+        Revenue retRevenue = new Revenue(1, 2021, 100, 200, 300, 200, 1);
+
+        Mockito.when(revenueMapper.selectRevenueByRestIdAndYear(restId, year)).thenReturn(retRevenue);
+
+        assertEquals(revenueServiceImpl.getRevenueByYear(restId, year), retRevenue);
+    }
+
+    @Test
     public void testGetAll() {
         List<Revenue> revenueList = Arrays.asList(
                 new Revenue(1, 2021, 100, 200, 300, 200, 1),

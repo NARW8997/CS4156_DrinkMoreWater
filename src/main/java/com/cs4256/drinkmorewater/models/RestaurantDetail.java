@@ -23,11 +23,11 @@ public class RestaurantDetail extends Restaurant {
     private String ownerName;
 
 
-//    public RestaurantDetail(Integer restId, String restLocation, String restName,
-//                            Integer restLikes, Integer restDislikes, String restNumber,
-//                            String restSize, Integer restOwnerId, String ownerName) {
-//        super(restId, restLocation, restName, restLikes, restDislikes,
-//                restNumber, restSize, restOwnerId);
-//        this.ownerName = ownerName;
-//    }
+    public RestaurantDetail(Integer restId, String restLocation, String restName,
+                            Integer restLikes, Integer restDislikes, String restNumber,
+                            String restSize, Integer restOwnerId, String ownerName) {
+        super(restId, restLocation, restName, restLikes, restDislikes,
+                restNumber, restSize, restOwnerId);
+        this.ownerName = ownerName;
+    }
 }
