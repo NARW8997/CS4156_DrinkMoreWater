@@ -4,7 +4,7 @@
     "name": "DrinkMoreWaterBookmarkAPItest",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "24117254",
-    "totalPass": 9,
+    "totalPass": 15,
     "totalFail": 0
   },
   "item": [
@@ -12,7 +12,7 @@
       "name": "BookmarkAPItest",
       "item": [
         {
-          "name": "Get_all_bookmark_test",
+          "name": "admin_get_all_bookmark_test",
           "event": [
             {
               "listen": "test",
@@ -39,13 +39,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/bookmark",
+              "raw": "http://localhost:8080/1/bookmark",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "bookmark"
               ]
             }
@@ -53,7 +54,7 @@
           "response": []
         },
         {
-          "name": "Get_one_bookmark_test",
+          "name": "admin_get_one_bookmark_test",
           "event": [
             {
               "listen": "test",
@@ -71,13 +72,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/bookmark/1",
+              "raw": "http://localhost:8080/1/bookmark/1",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "bookmark",
                 "1"
               ]
@@ -86,7 +88,7 @@
           "response": []
         },
         {
-          "name": "Add_bookmark_test",
+          "name": "admin_add_bookmark_test",
           "event": [
             {
               "listen": "test",
@@ -113,13 +115,14 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/bookmark",
+              "raw": "http://localhost:8080/1/bookmark",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "bookmark"
               ]
             }
@@ -127,7 +130,49 @@
           "response": []
         },
         {
-          "name": "Update_bookmark_test",
+          "name": "user_add_bookmark_test",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n        \"userId\": 4,\r\n        \"restId\": 3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/4/bookmark",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "4",
+                "bookmark"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "admin_update_bookmark_test",
           "event": [
             {
               "listen": "test",
@@ -146,7 +191,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"markId\": 4,\r\n    \"userId\": 4,\r\n    \"restId\": 2\r\n}",
+              "raw": "{\r\n    \"markId\": 5,\r\n    \"userId\": 4,\r\n    \"restId\": 2\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -154,13 +199,14 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/bookmark",
+              "raw": "http://localhost:8080/1/bookmark",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "bookmark"
               ]
             }
@@ -168,7 +214,7 @@
           "response": []
         },
         {
-          "name": "Remove_bookmark_test",
+          "name": "admin_remove_bookmark_test",
           "event": [
             {
               "listen": "test",
@@ -195,13 +241,14 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/bookmark/7",
+              "raw": "http://localhost:8080/1/bookmark/7",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "bookmark",
                 "7"
               ]
@@ -210,7 +257,50 @@
           "response": []
         },
         {
-          "name": "Get_bookmark_by_user",
+          "name": "user_remove_bookmark_test",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/4/bookmark/13",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "4",
+                "bookmark",
+                "13"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "admin_get_bookmark_by_user",
           "event": [
             {
               "listen": "test",
@@ -228,13 +318,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/bookmark/user/2",
+              "raw": "http://localhost:8080/1/bookmark/user/2",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "bookmark",
                 "user",
                 "2"
@@ -244,7 +335,7 @@
           "response": []
         },
         {
-          "name": "Get_bookmark_by_rest",
+          "name": "admin_get_bookmark_by_rest",
           "event": [
             {
               "listen": "test",
@@ -262,13 +353,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/bookmark/rest/2",
+              "raw": "http://localhost:8080/1/bookmark/rest/2",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "bookmark",
                 "rest",
                 "2"
@@ -278,7 +370,7 @@
           "response": []
         },
         {
-          "name": "Get_bookmark_count_by_user",
+          "name": "admin_get_bookmark_count_by_user",
           "event": [
             {
               "listen": "test",
@@ -296,13 +388,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/bookmark/countuser/2",
+              "raw": "http://localhost:8080/1/bookmark/countuser/2",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "bookmark",
                 "countuser",
                 "2"
@@ -312,7 +405,7 @@
           "response": []
         },
         {
-          "name": "Get_bookmark_count_by_rest",
+          "name": "admin_get_bookmark_count_by_rest",
           "event": [
             {
               "listen": "test",
@@ -330,13 +423,154 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/bookmark/countrest/2",
+              "raw": "http://localhost:8080/1/bookmark/countrest/2",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
+                "bookmark",
+                "countrest",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "user_get_bookmark_by_user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/4/bookmark/user/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "4",
+                "bookmark",
+                "user",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "user_get_bookmark_count_by_user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/4/bookmark/countuser/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "4",
+                "bookmark",
+                "countuser",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "rest_get_bookmark_by_user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/2/bookmark/rest/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "2",
+                "bookmark",
+                "rest",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "rest_get_bookmark_count_by_rest",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/2/bookmark/countrest/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "2",
                 "bookmark",
                 "countrest",
                 "2"

@@ -1,0 +1,20 @@
+package com.cs4256.drinkmorewater.models;
+
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Revenue {
+    @TableId("revenue_id")
+    private Integer revenueId;
+    private Integer revenueYear;
+    private Integer q1;
+    private Integer q2;
+    private Integer q3;
+    private Integer q4;
+    private Integer restId;
+}

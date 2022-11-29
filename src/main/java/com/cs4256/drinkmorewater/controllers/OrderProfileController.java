@@ -1,25 +1,44 @@
 package com.cs4256.drinkmorewater.controllers;
 
 import com.cs4256.drinkmorewater.controllers.utils.R;
+import com.cs4256.drinkmorewater.controllers.utils.UserType;
+import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.models.OrderProfile;
 import com.cs4256.drinkmorewater.services.impl.OrderProfileServiceImpl;
+import com.cs4256.drinkmorewater.services.impl.RestaurantServiceImpl;
+import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/orderProfile")
+@RequestMapping("/{uid}/orderProfile")
 public class OrderProfileController {
 
     @Autowired
     private OrderProfileServiceImpl orderProfileService;
+    @Autowired
+    private UserServiceImpl userService;
+    @Autowired
+    private RestaurantServiceImpl restaurantService;
 
+    private UserType userType;
+
+    @ModelAttribute
+    private void createUserType(@PathVariable Integer uid) {
+        userType = new UserType(uid, userService.getById(uid).getType());
+    }
     /**
      * return all element
      * @return
      */
     @GetMapping
+    // admin, uber
     public R getAll() {
-        return new R(true, orderProfileService.list());
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN) ||
+        userType.getTypeEnum().equals(TypeEnum.ORDERAPP)) {
+            return new R(true, orderProfileService.list());
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -27,17 +46,34 @@ public class OrderProfileController {
      * @return
      */
     @GetMapping("/{id}")
+    // admin, uber eats, rest(id)
     public R getById(@PathVariable Integer id) {
-        return new R(true, orderProfileService.getById(id));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN) ||
+                userType.getTypeEnum().equals(TypeEnum.ORDERAPP)) {
+            return new R(true, orderProfileService.getById(id));
+        } else if (userType.getTypeEnum().equals(TypeEnum.RESTAURANT) &&
+        userType.getUid().equals(restaurantService.getById
+                (orderProfileService.getById(id).getRestId()).getRestOwnerId())) {
+            return new R(true, orderProfileService.getById(id));
+        }
+
+        return new R (false, "You do not have right");
     }
+
+
 
     /**
      * add an element to the corresponding table
      * @return
      */
     @PostMapping
+    // admin, uber eats
     public R insert(@RequestBody OrderProfile orderProfile) {
-        return new R(orderProfileService.save(orderProfile));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN) ||
+        userType.getTypeEnum().equals(TypeEnum.ORDERAPP)) {
+            return new R(orderProfileService.save(orderProfile));
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -46,8 +82,12 @@ public class OrderProfileController {
      * @return
      */
     @PutMapping
+    // admin
     public R updateById(@RequestBody OrderProfile orderProfile) {
-        return new R(orderProfileService.updateById(orderProfile));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(orderProfileService.updateById(orderProfile));
+        }
+        return new R (false, "You do not have right");
     }
 
     /**
@@ -55,7 +95,11 @@ public class OrderProfileController {
      * @return
      */
     @DeleteMapping("/{id}")
+    // admin
     public R deleteById(@PathVariable Integer id) {
-        return new R(orderProfileService.removeById(id));
+        if (userType.getTypeEnum().equals(TypeEnum.ADMIN)) {
+            return new R(orderProfileService.removeById(id));
+        }
+        return new R (false, "You do not have right");
     }
 }

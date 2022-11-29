@@ -4,7 +4,7 @@
     "name": "DrinkMoreWaterOrderProfileAPItest",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "24117254",
-    "totalPass": 5,
+    "totalPass": 8,
     "totalFail": 0
   },
   "item": [
@@ -12,7 +12,7 @@
       "name": "OrderProfileAPItest",
       "item": [
         {
-          "name": "Get_all_order_profile_test",
+          "name": "admin_get_all_order_profile_test",
           "event": [
             {
               "listen": "test",
@@ -39,13 +39,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/orderProfile/",
+              "raw": "http://localhost:8080/1/orderProfile/",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "orderProfile",
                 ""
               ]
@@ -54,7 +55,50 @@
           "response": []
         },
         {
-          "name": "Get_one_order_profile_test",
+          "name": "uber_get_all_order_profile_test",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/1/orderProfile/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "1",
+                "orderProfile",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "admin_get_one_order_profile_test",
           "event": [
             {
               "listen": "test",
@@ -72,13 +116,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/orderProfile/1",
+              "raw": "http://localhost:8080/1/orderProfile/1",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "orderProfile",
                 "1"
               ]
@@ -87,7 +132,41 @@
           "response": []
         },
         {
-          "name": "Add_order_profile_test",
+          "name": "uber_get_one_order_profile_test",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/6/orderProfile/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "6",
+                "orderProfile",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "admin_add_order_profile_test",
           "event": [
             {
               "listen": "test",
@@ -106,7 +185,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"userId\": 7,\r\n    \"restId\": 1,\r\n    \"orderTime\": \"2022-11-23T04:00:00.000+00:00\",\r\n    \"total\": 35\r\n}",
+              "raw": "{\r\n    \"userId\": 9,\r\n    \"restId\": 1,\r\n    \"orderTime\": \"2022-01-23T04:00:00.000+00:00\",\r\n    \"total\": 143\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -114,13 +193,14 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/orderProfile/",
+              "raw": "http://localhost:8080/1/orderProfile/",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "orderProfile",
                 ""
               ]
@@ -129,7 +209,49 @@
           "response": []
         },
         {
-          "name": "Update_order_profile_test",
+          "name": "uber_add_order_profile_test",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "  pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userId\": 9,\r\n    \"restId\": 1,\r\n    \"orderTime\": \"2022-01-23T04:00:00.000+00:00\",\r\n    \"total\": 143\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/6/orderProfile",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "6",
+                "orderProfile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "admin_update_order_profile_test",
           "event": [
             {
               "listen": "test",
@@ -156,13 +278,14 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/orderProfile/",
+              "raw": "http://localhost:8080/1/orderProfile/",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "orderProfile",
                 ""
               ]
@@ -171,7 +294,7 @@
           "response": []
         },
         {
-          "name": "Remove_order_profile_test",
+          "name": "admin_remove_order_profile_test",
           "event": [
             {
               "listen": "test",
@@ -198,13 +321,14 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/orderProfile/3",
+              "raw": "http://localhost:8080/1/orderProfile/3",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
+                "1",
                 "orderProfile",
                 "3"
               ]
