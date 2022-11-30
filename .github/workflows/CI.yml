@@ -16,6 +16,5 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
       - name: User Test
-        run: mvn -Dtest=UserTests test
-      - name: Dish Test
-        run: mvn -Dtest=DishTests test
+        run: mvn test
+
