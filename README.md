@@ -46,6 +46,10 @@
   * We can use or CheckStyle-IDEA or SonarLint IDEA plugin for Style checking.
 
 ## 5. Build, Run, Test Instructions
+  * The installation of Maven is required for running this project
+  * run **mvn install** to install all the dependencies needed for building this project
+  * run **mvn spring-boot:run** to start the application, the application will run on port 8080
+  * run **mvn test** to run our test scripts for the project
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
