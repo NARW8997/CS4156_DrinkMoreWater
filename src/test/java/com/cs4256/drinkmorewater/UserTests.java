@@ -23,18 +23,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ContextConfiguration(loader= AnnotationConfigContextLoader.class)
 public class UserTests {
 
-    @Configuration
-    static class ContextConfiguration {
-
-        @Bean
-        public UserServiceImpl UserService() {
-            UserServiceImpl userService = new UserServiceImpl();
-            return userService;
-        }
-    }
     @Autowired
     private UserServiceImpl userServiceImpl;
 
