@@ -16,4 +16,4 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
       - name: Test
-        run: cd com/cs4256/drinkmorewater && mvn -Dtest=UserTests test
+        run: cd com && cd cs4256 && cd drinkmorewater && mvn -Dtest=UserTests test
