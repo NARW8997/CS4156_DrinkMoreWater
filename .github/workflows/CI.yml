@@ -15,21 +15,21 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
-      - name: User Test
-        run: mvn -Dtest = UserTests test
       - name: Review Test
-        run: mvn -Dtest = ReviewTests test
+        run: mvn -Dtest=ReviewTests test
+      - name: User Test
+        run: mvn -Dtest=UserTests test
       - name: Restaurant Test
-        run: mvn -Dtest = RestaurantTests test
+        run: mvn -Dtest=RestaurantTests test
       - name: Revenue Test
-        run: mvn -Dtest = RevenueTests test
+        run: mvn -Dtest=RevenueTests test
       - name: Dish Test
-        run: mvn -Dtest = DishTests test
+        run: mvn -Dtest=DishTests test
       - name: Bookmark Test
-        run: mvn -Dtest = BookmarkTests test
+        run: mvn -Dtest=BookmarkTests test
       - name: OrderDish Test
-        run: mvn -Dtest = OrderDishTests test
+        run: mvn -Dtest=OrderDishTests test
       - name: OrderProfile Test
-        run: mvn -Dtest = OrderProfileTests test
+        run: mvn -Dtest=OrderProfileTests test
         
 
