@@ -59,9 +59,8 @@
 
 
 ## 2. Continuous Integration
-  * We can useTravis CI with Github, or TeamCity with Intellij IDEA
+  * We are currently using github action workflow as the CI option, for running the tests we chose to use the surefire maven plugin.
 ## 3. Coverage
-  * We can use JUnit or Built-in Intellij IDEA tools along with JaCoCo for coverage display. 
-  * We can use JUnit for covering test001 runs.
+  * We are using the Built-in Intellij IDEA tools along with JaCoCo for coverage display. 
 ## 4. Bug Finder
   * We can use FindBugs-IDEA or SpotBugs IDEA plugin for Style checking.
