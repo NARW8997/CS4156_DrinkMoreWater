@@ -14,7 +14,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots package
+        run: mvn -B package --file pom.xml -Dmaven.test.skip=true
       - name: User Test
         run: mvn -Dtest=UserTests test
       - name: Dish Test
