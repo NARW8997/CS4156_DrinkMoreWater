@@ -4,7 +4,6 @@ import com.cs4256.drinkmorewater.controllers.utils.R;
 import com.cs4256.drinkmorewater.controllers.utils.UserType;
 import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.models.Review;
-import com.cs4256.drinkmorewater.models.User;
 import com.cs4256.drinkmorewater.services.impl.ReviewServiceImpl;
 import com.cs4256.drinkmorewater.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +75,7 @@ public class ReviewController {
      * add an element to the corresponding table
      * @return
      */
+    @SuppressWarnings("DuplicatedCode")
     @PostMapping
     // admin, user(id)
     public R insert(@RequestBody Review review) {

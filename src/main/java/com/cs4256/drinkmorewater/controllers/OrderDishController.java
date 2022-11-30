@@ -4,7 +4,6 @@ import com.cs4256.drinkmorewater.controllers.utils.R;
 import com.cs4256.drinkmorewater.controllers.utils.UserType;
 import com.cs4256.drinkmorewater.enums.TypeEnum;
 import com.cs4256.drinkmorewater.models.OrderDish;
-import com.cs4256.drinkmorewater.models.User;
 import com.cs4256.drinkmorewater.services.impl.OrderDishServiceImpl;
 import com.cs4256.drinkmorewater.services.impl.OrderProfileServiceImpl;
 import com.cs4256.drinkmorewater.services.impl.RestaurantServiceImpl;

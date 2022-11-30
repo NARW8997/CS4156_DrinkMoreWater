@@ -3,7 +3,6 @@ package com.cs4256.drinkmorewater;
 import com.cs4256.drinkmorewater.mapper.RevenueMapper;
 import com.cs4256.drinkmorewater.models.Revenue;
 import com.cs4256.drinkmorewater.services.impl.RevenueServiceImpl;
-import lombok.NoArgsConstructor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

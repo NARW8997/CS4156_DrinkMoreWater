@@ -1,7 +1,6 @@
 package com.cs4256.drinkmorewater.mapper;
 import java.util.List;
 
-import com.cs4256.drinkmorewater.models.User;
 import com.cs4256.drinkmorewater.models.UserRest;
 import org.apache.ibatis.annotations.Param;
 
