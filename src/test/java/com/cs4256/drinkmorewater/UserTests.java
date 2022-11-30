@@ -10,7 +10,11 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,8 +23,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ContextConfiguration(loader= AnnotationConfigContextLoader.class)
 public class UserTests {
 
+    @Configuration
+    static class ContextConfiguration {
+
+        @Bean
+        public UserServiceImpl UserService() {
+            UserServiceImpl userService = new UserServiceImpl();
+            return userService;
+        }
+    }
     @Autowired
     private UserServiceImpl userServiceImpl;
 
@@ -84,4 +98,5 @@ public class UserTests {
 
         assertTrue(userServiceImpl.removeById(removeId));
     }
+
 }
