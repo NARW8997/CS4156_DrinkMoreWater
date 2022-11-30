@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
 @Data
 @NoArgsConstructor
 public class Dish {
