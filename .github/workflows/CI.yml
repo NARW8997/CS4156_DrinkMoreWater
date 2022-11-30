@@ -31,3 +31,9 @@ jobs:
         run: mvn -Dtest=OrderDishTests test
       - name: OrderProfile Test
         run: mvn -Dtest=OrderProfileTests test
+      - name: Export test results
+        run: cp CS4156_DrinkMoreWater/target/surefire-reports/*.txt CIResults
+      - uses: EndBug/add-and-commit@v7
+        with:
+          add: CIReports/.
+          default_actor: github_actions
