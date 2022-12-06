@@ -1,6 +1,6 @@
 name: Static code analysis test
 
-on: [push]
+on: 
 
 jobs:
   build:
