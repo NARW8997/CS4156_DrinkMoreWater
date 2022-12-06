@@ -63,8 +63,8 @@
 
 
 ## 2. Continuous Integration
-  * We are currently using github action workflow as the CI option, for running the tests we chose to use the surefire maven plugin.
+  * We are currently using github action workflow as the CI option, for running the tests we chose to use the surefire maven plugin. Sample test reports generated from surefire reports can be view in CS4156_DrinkMoreWater/CIResults folder.
 ## 3. Coverage
   * We are using the Built-in Intellij IDEA tools along with JaCoCo for coverage display. 
 ## 4. Bug Finder
-  * We can use FindBugs-IDEA or SpotBugs IDEA plugin for Style checking.
+  * We are using SpotBugs github actions for our static code bug finder, currently we do not have fatal bugs, although we still have a few warnings but we've decided that we'd prefer our current design over the suggestions given from SpotBugs. The bug reports of each of our commited push can be viewed under the Actions in our repository.  
