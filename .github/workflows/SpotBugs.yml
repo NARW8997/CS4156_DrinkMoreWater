@@ -1,4 +1,4 @@
-name: Sonarqube
+name: Static code analysis test
 
 on: [push]
 
