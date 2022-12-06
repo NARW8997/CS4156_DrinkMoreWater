@@ -13,6 +13,6 @@ public enum TypeEnum {
     RESTAURANT(3, "restaurant_owner");
 
     @EnumValue
-    private Integer type;
-    private String typeName;
+    private final Integer type;
+    private final String typeName;
 }
