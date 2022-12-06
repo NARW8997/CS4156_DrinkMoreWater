@@ -42,6 +42,6 @@ jobs:
         run: cp target/surefire-reports/*.txt CIResults
       - uses: EndBug/add-and-commit@v7
         with:
-          add: UnitTesting/.
+          add: CIResults/.
           default_actor: github_actions
 
