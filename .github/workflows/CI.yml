@@ -31,3 +31,6 @@ jobs:
         run: mvn -Dtest=OrderDishTests test
       - name: OrderProfile Test
         run: mvn -Dtest=OrderProfileTests test
+      - name: Generate test reports
+        run: mvn surefire-report:report  
+
