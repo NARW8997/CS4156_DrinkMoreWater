@@ -68,3 +68,5 @@
   * We are using the Built-in Intellij IDEA tools along with JaCoCo for coverage display. 
 ## 4. Bug Finder
   * We are using SpotBugs github actions for our static code bug finder, currently we do not have fatal bugs, although we still have a few warnings but we've decided that we'd prefer our current design over the suggestions given from SpotBugs. The bug reports of each of our commited push can be viewed in the Action details in our repository.  
+  
+  
