@@ -38,4 +38,10 @@ jobs:
       - uses: jwgmeligmeyling/spotbugs-github-action@master
         with:
           path: '**/spotbugsXml.xml'
+      - name: Export test results
+        run: cp target/surefire-reports/*.txt CIResults
+      - uses: EndBug/add-and-commit@v7
+        with:
+          add: UnitTesting/.
+          default_actor: github_actions
 
