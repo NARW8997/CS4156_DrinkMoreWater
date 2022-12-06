@@ -33,25 +33,9 @@ jobs:
         run: mvn -Dtest=OrderProfileTests test
       - name: Generate test reports
         run: mvn surefire-report:report
-      - name: sonarqube
-        run: mvn clean verify sonar:sonar \   -Dsonar.projectKey=cs4156 \   -Dsonar.host.url=http://localhost:9000 \   -Dsonar.login=sqp_43c8fd77374b0c42b904620f65e292915a10bf95
-      
-#       - name: Cache SonarQube packages
-#         uses: actions/cache@v1
-#         with:
-#           path: ~/.sonar/cache
-#           key: ${{ runner.os }}-sonar
-#           restore-keys: ${{ runner.os }}-sonar
-#       - name: Cache Maven packages
-#         uses: actions/cache@v1
-#         with:
-#           path: ~/.m2
-#           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-#           restore-keys: ${{ runner.os }}-m2
-#       - name: Build and analyze
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-#         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=cs4156_drinkmorewater
+      - name: Run Spotbugs
+        run: mvn -B verify spotbugs:spotbugs
+      - uses: jwgmeligmeyling/spotbugs-github-action@master
+        with:
+          path: '**/spotbugsXml.xml'
 
