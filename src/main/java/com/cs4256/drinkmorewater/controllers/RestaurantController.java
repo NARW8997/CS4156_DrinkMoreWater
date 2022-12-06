@@ -31,6 +31,7 @@ public class RestaurantController {
      * return all element
      * @return
      */
+
     @GetMapping
     // admin, uber eats, user, rest
     public R getAll() {

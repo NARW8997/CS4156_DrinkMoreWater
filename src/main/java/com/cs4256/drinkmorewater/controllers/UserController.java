@@ -82,7 +82,7 @@ Restaurants (owners): 3
      */
     @PutMapping
     // admin, user(id)
-    public R updateById(@PathVariable Integer uid, @RequestBody User user) {
+    public R updateById(@RequestBody User user) {
         if (type.equals(TypeEnum.ADMIN.getType())) {
             return new R(userService.updateById(user));
 
