@@ -21,7 +21,7 @@
         set rest_dislikes = rest_dislikes + 1
         where rest_id = #{restId,jdbcType=NUMERIC}
     </update>
-    <insert id="insertExceptLikeAndDislike">
+    <insert id="insertExceptLikeAndDislike" useGeneratedKeys="true" keyProperty="restId" keyColumn="rest_id">
         insert into restaurant(
             rest_location,
             rest_name,
@@ -34,7 +34,7 @@
             <if test="restName != null">#{restName,jdbcType=VARCHAR},</if>
             <if test="restNumber != null">#{restNumber,jdbcType=VARCHAR},</if>
             <if test="restSize != null">#{restSize,jdbcType=VARCHAR},</if>
-            <if test="restOwnerId != null">rest_owner_id=#{restOwnerId,jdbcType=VARCHAR},</if>
+            <if test="restOwnerId != null">#{restOwnerId,jdbcType=NUMERIC},</if>
         </trim>
     </insert>
     <update id="updateExceptLikeAndDislike">
